@@ -11,12 +11,10 @@ import {
   CopyIcon,
   LinkedInIcon,
   LinkIcon,
-  XIcon,
   GithubIcon,
 } from "@/lib/utils/icons";
 import { cn } from "@/lib/utils";
 
-// Helper component must be defined before usage or hoisted
 interface CommandItemProps {
   value: string;
   onSelect?: () => void;
@@ -44,10 +42,10 @@ const CommandItem = memo(function CommandItem({
         {icon}
       </div>
       <div className="ml-3 flex flex-col justify-center">
-        <span className="text-[clamp(12px,.5vw,16px)] font-medium text-white/80 group-data-[selected=true]:text-white font-secondary">
+        <span className="text-[14px] font-medium text-white/80 group-data-[selected=true]:text-white font-secondary">
           {label}
         </span>
-        <span className="text-[clamp(10px,.5vw,12px)] text-white/40 group-data-[selected=true]:text-white/60 font-secondary">
+        <span className="text-[12px] text-white/40 group-data-[selected=true]:text-white/60 font-secondary">
           {description}
         </span>
       </div>
@@ -69,7 +67,11 @@ interface CommandMenuProps {
 }
 
 /**
- * CommandMenu - Optimized for INP (Interaction to Next Paint)
+ * CommandMenu — pre-mounted for zero open latency.
+ *
+ * The key perf fix: this component is ALWAYS in the DOM (never unmounted).
+ * When closed, it is hidden with CSS (opacity 0, pointer-events-none, visibility hidden).
+ * Opening costs only a CSS transition — no React mount, no cmdk init, no ARIA setup.
  */
 const CommandMenu = memo(function CommandMenu({
   isOpen,
@@ -77,64 +79,65 @@ const CommandMenu = memo(function CommandMenu({
   onNavigate,
 }: CommandMenuProps) {
   const [search, setSearch] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
-  // Memoized close handler
   const handleClose = useCallback(() => {
     setIsOpen(false);
     setSearch("");
   }, [setIsOpen]);
 
-  // Memoized click outside handler
-  const handleClickOutside = useCallback(
-    (event: MouseEvent) => {
-      const target = event.target as Element;
-      if (contentRef.current && !contentRef.current.contains(target)) {
+  // Focus the input whenever the menu opens — replaces autoFocus
+  useEffect(() => {
+    if (isOpen) {
+      // Pause Lenis so its rAF loop doesn't compete with the open animation
+      const lenis = (window as any).lenis;
+      lenis?.stop();
+
+      // Defer focus by one frame so the CSS transition has started
+      const id = requestAnimationFrame(() => {
+        inputRef.current?.focus();
+      });
+      return () => cancelAnimationFrame(id);
+    } else {
+      // Resume Lenis when menu closes
+      const lenis = (window as any).lenis;
+      lenis?.start();
+    }
+  }, [isOpen]);
+
+  // Click outside — only active when open
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleClickOutside = (e: MouseEvent) => {
+      if (contentRef.current && !contentRef.current.contains(e.target as Element)) {
         handleClose();
       }
-    },
-    [handleClose]
-  );
+    };
 
-  // Memoized keyboard handler
-  const handleKeyDown = useCallback(
-    (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
+    document.addEventListener("mousedown", handleClickOutside, { capture: true });
+    return () => document.removeEventListener("mousedown", handleClickOutside, { capture: true });
+  }, [isOpen, handleClose]);
+
+  // Keyboard shortcuts — always active
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isOpen) {
         e.preventDefault();
         handleClose();
         return;
       }
-
       if ((e.metaKey || e.ctrlKey) && e.key === "k") {
         e.preventDefault();
         setIsOpen(!isOpen);
       }
-    },
-    [handleClose, setIsOpen, isOpen]
-  );
-
-  // Add click outside handler
-  useEffect(() => {
-    if (!isOpen) return;
-
-    document.addEventListener("mousedown", handleClickOutside, {
-      capture: true,
-    });
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside, {
-        capture: true,
-      });
     };
-  }, [isOpen, handleClickOutside]);
 
-  // Keyboard shortcuts
-  useEffect(() => {
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [handleKeyDown]);
+  }, [isOpen, handleClose, setIsOpen]);
 
-  // Memoized select handler
   const handleSelect = useCallback(
     (value: string) => {
       switch (value) {
@@ -159,12 +162,6 @@ const CommandMenu = memo(function CommandMenu({
     [onNavigate, handleClose]
   );
 
-  // Memoized search change handler
-  const handleSearchChange = useCallback((value: string) => {
-    setSearch(value);
-  }, []);
-
-  // Pre-created handlers to avoid inline functions
   const handleSelectHome = useCallback(() => handleSelect("home"), [handleSelect]);
   const handleSelectAbout = useCallback(() => handleSelect("about"), [handleSelect]);
   const handleSelectProjects = useCallback(() => handleSelect("projects"), [handleSelect]);
@@ -173,22 +170,38 @@ const CommandMenu = memo(function CommandMenu({
   const handleSelectLinkedIn = useCallback(() => handleSelect("linkedin"), [handleSelect]);
   const handleSelectGithub = useCallback(() => handleSelect("github"), [handleSelect]);
 
-  if (!isOpen) return null;
+  const handleSearchChange = useCallback((value: string) => {
+    setSearch(value);
+  }, []);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden p-4 sm:p-0">
+    // Outer shell — always in DOM, hidden with CSS when closed
+    <div
+      aria-hidden={!isOpen}
+      className={cn(
+        "fixed inset-0 z-50 flex items-center justify-center overflow-hidden p-4 sm:p-0",
+        "transition-opacity duration-150",
+        isOpen
+          ? "opacity-100 pointer-events-auto"
+          : "opacity-0 pointer-events-none"
+      )}
+    >
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black/65 animate-in fade-in duration-150"
+        className="fixed inset-0 bg-black/65"
         onClick={handleClose}
       />
 
-      {/* Content Wrapper */}
+      {/* Content wrapper */}
       <div
         ref={contentRef}
-        className="relative z-50 w-full max-w-2xl animate-in zoom-in-95 slide-in-from-bottom-2 duration-200"
+        className={cn(
+          "relative z-50 w-full max-w-2xl",
+          "transition-transform duration-150 ease-out",
+          isOpen ? "translate-y-0" : "translate-y-2"
+        )}
       >
-        {/* Glow Effect */}
+        {/* Glow */}
         <div
           className="absolute -inset-4 -z-10 rounded-xl opacity-40 pointer-events-none"
           style={{
@@ -197,24 +210,24 @@ const CommandMenu = memo(function CommandMenu({
           }}
         />
 
-        {/* Command Menu */}
+        {/* Panel */}
         <div className="relative overflow-hidden rounded-xl border border-white/[0.12] bg-[#0a0a0f] shadow-[0_24px_48px_rgba(0,0,0,0.7)]">
           <Command
             className="h-full w-full overflow-hidden bg-transparent"
             shouldFilter={true}
           >
-            {/* Input Area */}
+            {/* Input */}
             <div className="flex items-center border-b border-white/10 px-4">
               <SearchIcon className="mr-3 h-5 w-5 shrink-0 text-white/50" />
               <Command.Input
+                ref={inputRef}
                 value={search}
                 onValueChange={handleSearchChange}
                 placeholder="Type a command or search..."
-                className="flex h-14 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-white/50 text-white font-secondary disabled:cursor-not-allowed disabled:opacity-50"
-                autoFocus
+                className="flex h-14 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-white/50 text-white font-secondary"
               />
               <button
-                className="ml-2 hidden sm:inline-flex h-6 select-none items-center gap-1 rounded border border-white/20 bg-white/5 px-2 text-[10px] font-medium text-white/70 opacity-100 hover:bg-white/10 transition-colors"
+                className="ml-2 hidden sm:inline-flex h-6 select-none items-center gap-1 rounded border border-white/20 bg-white/5 px-2 text-[10px] font-medium text-white/70 hover:bg-white/10 transition-colors"
                 onClick={handleClose}
                 type="button"
               >
@@ -222,82 +235,35 @@ const CommandMenu = memo(function CommandMenu({
               </button>
             </div>
 
-            {/* List Area */}
-            <Command.List className="max-h-[60vh] overflow-y-auto overflow-x-hidden p-2 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
+            {/* List */}
+            <Command.List className="max-h-[60vh] overflow-y-auto overflow-x-hidden p-2">
               <Command.Empty className="py-6 text-center text-sm text-white/50 font-secondary">
                 No results found.
               </Command.Empty>
 
-              {/* Pages */}
               <Command.Group
                 heading="Pages"
                 className="text-white/50 px-2 py-1.5 text-xs font-medium font-secondary uppercase tracking-wider [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground"
               >
-                <CommandItem
-                  value="home"
-                  onSelect={handleSelectHome}
-                  icon={<HomeIcon className="h-5 w-5" />}
-                  label="Home"
-                  description="Go to the home page"
-                />
-                <CommandItem
-                  value="about"
-                  onSelect={handleSelectAbout}
-                  icon={<AboutIcon className="h-5 w-5" />}
-                  label="About"
-                  description="Learn more about me"
-                />
-                <CommandItem
-                  value="projects"
-                  onSelect={handleSelectProjects}
-                  icon={<ProjectsIcon className="h-5 w-5" />}
-                  label="Projects"
-                  description="View my projects"
-                />
+                <CommandItem value="home" onSelect={handleSelectHome} icon={<HomeIcon className="h-5 w-5" />} label="Home" description="Go to the home page" />
+                <CommandItem value="about" onSelect={handleSelectAbout} icon={<AboutIcon className="h-5 w-5" />} label="About" description="Learn more about me" />
+                <CommandItem value="projects" onSelect={handleSelectProjects} icon={<ProjectsIcon className="h-5 w-5" />} label="Projects" description="View my projects" />
               </Command.Group>
 
-              {/* Actions */}
               <Command.Group
                 heading="Actions"
                 className="text-white/50 px-2 py-1.5 text-xs font-medium font-secondary uppercase tracking-wider"
               >
-                <CommandItem
-                  value="copy-email"
-                  onSelect={handleSelectCopyEmail}
-                  icon={<CopyIcon className="h-5 w-5" />}
-                  label="Copy Email"
-                  description="Copy my email to clipboard"
-                />
-                <CommandItem
-                  value="contact"
-                  onSelect={handleSelectContact}
-                  icon={<ContactIcon className="h-5 w-5" />}
-                  label="Contact"
-                  description="Get in touch with me"
-                />
+                <CommandItem value="copy-email" onSelect={handleSelectCopyEmail} icon={<CopyIcon className="h-5 w-5" />} label="Copy Email" description="Copy my email to clipboard" />
+                <CommandItem value="contact" onSelect={handleSelectContact} icon={<ContactIcon className="h-5 w-5" />} label="Contact" description="Get in touch with me" />
               </Command.Group>
 
-              {/* Socials */}
               <Command.Group
                 heading="Socials"
                 className="text-white/50 px-2 py-1.5 text-xs font-medium font-secondary uppercase tracking-wider"
               >
-                <CommandItem
-                  value="linkedin"
-                  onSelect={handleSelectLinkedIn}
-                  icon={<LinkedInIcon className="h-5 w-5" />}
-                  label="LinkedIn"
-                  description="Connect with me on LinkedIn"
-                  shortcut={<LinkIcon className="h-3 w-3" />}
-                />
-                <CommandItem
-                  value="github"
-                  onSelect={handleSelectGithub}
-                  icon={<GithubIcon className="h-5 w-5" />}
-                  label="Github"
-                  description="Connect with me on Github"
-                  shortcut={<LinkIcon className="h-3 w-3" />}
-                />
+                <CommandItem value="linkedin" onSelect={handleSelectLinkedIn} icon={<LinkedInIcon className="h-5 w-5" />} label="LinkedIn" description="Connect with me on LinkedIn" shortcut={<LinkIcon className="h-3 w-3" />} />
+                <CommandItem value="github" onSelect={handleSelectGithub} icon={<GithubIcon className="h-5 w-5" />} label="Github" description="Connect with me on Github" shortcut={<LinkIcon className="h-3 w-3" />} />
               </Command.Group>
             </Command.List>
 
@@ -313,7 +279,6 @@ const CommandMenu = memo(function CommandMenu({
                   onClick={() => window.open("https://github.com/devtitus", "_blank")}
                 />
               </div>
-
               <div className="flex items-center gap-4 text-xs text-white/60 font-secondary">
                 <div className="flex items-center gap-1.5">
                   <span className="flex items-center justify-center w-5 h-5 rounded border border-white/20 bg-white/5 text-[10px] font-medium">↑</span>
