@@ -1,12 +1,16 @@
 import React from "react";
+import dynamic from "next/dynamic";
 import { AboutHeroSection } from "@/components/features/about/aboutHeroSection";
-import { AboutSelectedPath } from "@/components/features/about/aboutSelectedPath";
 import ContactSection from "@/components/features/home/contactSection";
-
 import { getExperience } from "@/lib/services/sanity/getExperience";
 import { getEducation } from "@/lib/services/sanity/getEducation";
 import { getSiteSettings } from "@/lib/services/sanity/getSiteSettings";
 import type { Metadata } from "next";
+
+// Code-split the below-fold timeline — still SSRs, just smaller initial JS bundle
+const AboutSelectedPath = dynamic(
+  () => import("@/components/features/about/aboutSelectedPath").then((m) => m.AboutSelectedPath)
+);
 
 export const metadata: Metadata = {
   title: 'About Me',
@@ -20,9 +24,12 @@ export const metadata: Metadata = {
 };
 
 const AboutPage = async () => {
-  const experiences = await getExperience();
-  const education = await getEducation();
-  const siteSettings = await getSiteSettings();
+  // Parallel data fetching — eliminates the sequential waterfall
+  const [experiences, education, siteSettings] = await Promise.all([
+    getExperience(),
+    getEducation(),
+    getSiteSettings(),
+  ]);
 
   return (
     <div className="min-h-svh text-[var(--default-text-color)]">
@@ -41,8 +48,7 @@ const AboutPage = async () => {
             <span
               className="text-[clamp(26px,3.2vw,48px)] font-serif leading-normal block italic"
               style={{
-                background:
-                  "linear-gradient(90deg, #FF9A8B 0%, #FF6A88 55%, #FF99AC 100%)",
+                background: "linear-gradient(90deg, #FF9A8B 0%, #FF6A88 55%, #FF99AC 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
               }}
