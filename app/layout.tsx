@@ -30,6 +30,9 @@ const satoshi = localFont({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.melwyn.co.in'),
+  alternates: {
+    canonical: '/',
+  },
   title: {
     default: 'Melwyn Titus | Full Stack Developer & Product Engineer',
     template: '%s | Melwyn Titus'
@@ -95,6 +98,8 @@ export const metadata: Metadata = {
       { url: '/favicon.ico' },
       { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
       { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/android-chrome-512x512.png', sizes: '512x512', type: 'image/png' },
     ],
     shortcut: '/favicon.ico',
     apple: [
@@ -115,7 +120,7 @@ export const viewport = {
   colorScheme: 'dark',
 };
 
-import { PersonSchema, WebsiteSchema } from "@/app/components/structured-data";
+import { OrganizationSchema, PersonSchema, WebsiteSchema } from "@/app/components/structured-data";
 
 export default function RootLayout({
   children,
@@ -127,6 +132,7 @@ export default function RootLayout({
         suppressHydrationWarning={true}
       >
         <PersonSchema />
+        <OrganizationSchema />
         <WebsiteSchema />
         <SmoothScrollProvider>
           <ContactModalProvider>{children}</ContactModalProvider>

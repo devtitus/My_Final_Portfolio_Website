@@ -52,3 +52,24 @@ export function WebsiteSchema() {
         />
     );
 }
+
+export function OrganizationSchema() {
+    const schema = {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Melwyn Titus",
+        "url": "https://www.melwyn.co.in",
+        "logo": "https://www.melwyn.co.in/android-chrome-512x512.png",
+        "sameAs": [
+            "https://github.com/devtitus",
+            "https://www.linkedin.com/in/melwyn-john-8125bb214"
+        ]
+    };
+
+    return (
+        <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+    );
+}

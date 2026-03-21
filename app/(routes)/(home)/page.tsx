@@ -16,6 +16,9 @@ const ContactSection = dynamic(() => import("@/components/features/home/contactS
 export const metadata: Metadata = {
   title: 'Home',
   description: 'Transforming complex challenges into elegant solutions. Full Stack Developer & Product Engineer with expertise in modern web technologies.',
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
     title: 'Melwyn Titus | Full Stack Developer & Product Engineer',
     description: 'Transforming complex challenges into elegant solutions.',

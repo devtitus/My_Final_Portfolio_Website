@@ -4,10 +4,14 @@ import { ProjectsGrid } from "@/components/features/projects/projectsGrid";
 import ContactSection from "@/components/features/home/contactSection";
 import { getProjects } from "@/lib/services/sanity/getProjects";
 import { getSiteSettings } from "@/lib/services/sanity/getSiteSettings";
+import type { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Projects & Case Studies | Melwyn Titus",
   description: "Exploring the intersection of design, engineering, and user experience.",
+  alternates: {
+    canonical: '/projects',
+  },
   openGraph: {
     title: 'Projects & Case Studies | Melwyn Titus',
     description: 'Exploring the intersection of design, engineering, and user experience.',

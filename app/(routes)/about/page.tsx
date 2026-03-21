@@ -15,6 +15,9 @@ const AboutSelectedPath = dynamic(
 export const metadata: Metadata = {
   title: 'About Me',
   description: 'Learn about Melwyn Titus, a Full Stack Developer with expertise in enterprise-grade web applications, modern JavaScript frameworks, and product engineering.',
+  alternates: {
+    canonical: '/about',
+  },
   openGraph: {
     title: 'About Melwyn Titus | Full Stack Developer',
     description: 'Turning complex problems into elegant, user-centric products.',
