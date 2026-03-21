@@ -82,7 +82,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                             <DialogTitle className="font-secondary text-[clamp(28px,3.25vw,38px)] text-left leading-tight text-foreground">
                                 Get In Touch
                             </DialogTitle>
-                            <span className="font-secondary text-[var(--skill-text-color)] text-left text-[clamp(16px,1vw,18px)] mb-[clamp(4px,1vw,8px)]">
+                            <span className="font-secondary text-[var(--skill-text-color)] text-left text-sm sm:text-base mb-[clamp(4px,1vw,8px)]">
                                 Have a project in mind? Let's talk.
                             </span>
                         </div>
@@ -103,30 +103,30 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                                 )}
                             >
                                 <div className="flex flex-col gap-2">
-                                    <h4 className="flex items-center gap-2 text-[clamp(16px,1.2vw,18px)] font-medium text-foreground">
-                                        <Mail className="w-5 h-5 text-primary" />
+                                    <h4 className="flex items-center gap-2 text-sm font-medium font-secondary text-foreground">
+                                        <Mail className="w-4 h-4 text-primary shrink-0" />
                                         Email
                                     </h4>
                                     <a
                                         href="mailto:hello@example.com"
-                                        className="text-[var(--skill-text-color)] hover:text-primary transition-colors text-[clamp(14px,1vw,16px)]"
+                                        className="text-[var(--skill-text-color)] hover:text-primary transition-colors font-secondary text-xs sm:text-sm"
                                     >
                                         m.works.gd@gmail.com
                                     </a>
                                 </div>
 
                                 <div className="flex flex-col gap-2">
-                                    <h4 className="flex items-center gap-2 text-[clamp(16px,1.2vw,18px)] font-medium text-foreground">
-                                        <MapPin className="w-5 h-5 text-primary" />
+                                    <h4 className="flex items-center gap-2 text-sm font-medium font-secondary text-foreground">
+                                        <MapPin className="w-4 h-4 text-primary shrink-0" />
                                         Location
                                     </h4>
-                                    <p className="text-[var(--skill-text-color)] text-[clamp(14px,1vw,16px)]">
+                                    <p className="text-[var(--skill-text-color)] font-secondary text-xs sm:text-sm">
                                         Available Worldwide (Remote)
                                     </p>
                                 </div>
                             </div>
 
-                            <div className="text-[var(--skill-text-color)] text-[clamp(14px,1vw,16px)] leading-relaxed italic opacity-80">
+                            <div className="text-[var(--skill-text-color)] font-secondary text-xs sm:text-sm leading-relaxed italic opacity-80">
                                 "Great design is a relationship between form and function."
                             </div>
                         </div>

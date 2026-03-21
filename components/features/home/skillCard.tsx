@@ -15,9 +15,9 @@ const SkillCard = memo(function SkillCard({ skillName, skillIcon }: SkillCardPro
       padding="sm"
       className="group flex flex-col items-center justify-center gap-3"
     >
-      <div className="flex flex-col items-center justify-center gap-[clamp(4px,1vw,12px)]">
+      <div className="flex flex-col items-center justify-center gap-2 sm:gap-2.5">
         <div
-          className="relative w-[clamp(34px,3vw,44px)] h-[clamp(34px,3vw,44px)] will-change-transform transition-transform duration-300 group-hover:scale-110"
+          className="relative w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 will-change-transform transition-transform duration-300 group-hover:scale-110"
           style={{ willChange: "transform" }}
         >
           <img
@@ -28,7 +28,7 @@ const SkillCard = memo(function SkillCard({ skillName, skillIcon }: SkillCardPro
             decoding="async"
           />
         </div>
-        <span className="text-white/80 text-[clamp(12px,1vw,14px)] font-medium text-center transition-colors duration-300 group-hover:text-white">
+        <span className="text-white/80 text-[11px] sm:text-xs font-secondary font-medium text-center transition-colors duration-300 group-hover:text-white">
           {skillName}
         </span>
       </div>
