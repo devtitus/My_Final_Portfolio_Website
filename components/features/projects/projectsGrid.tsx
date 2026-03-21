@@ -16,7 +16,7 @@ interface ProjectsGridProps {
 
 const ProjectsGrid: React.FC<ProjectsGridProps> = ({ projects }) => {
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(
-    null
+    null,
   );
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -33,7 +33,7 @@ const ProjectsGrid: React.FC<ProjectsGridProps> = ({ projects }) => {
           "px-[clamp(16px,4vw,60px)] 2xl:px-0",
           "py-[clamp(60px,10vh,100px)]",
           "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3",
-          "gap-[clamp(24px,4vw,40px)]"
+          "gap-[clamp(24px,4vw,40px)]",
         )}
       >
         {projects.map((project) => {
@@ -53,7 +53,7 @@ const ProjectsGrid: React.FC<ProjectsGridProps> = ({ projects }) => {
                 "hover:-translate-y-2 hover:border-white/[0.14] hover:bg-white/[0.06]",
                 "hover:shadow-[0_12px_40px_rgba(0,0,0,0.4)]",
                 "motion-reduce:hover:translate-y-0",
-                "flex flex-col h-full cursor-pointer group"
+                "flex flex-col h-full cursor-pointer group",
               )}
               onClick={() => handleProjectClick(project)}
             >
@@ -75,7 +75,7 @@ const ProjectsGrid: React.FC<ProjectsGridProps> = ({ projects }) => {
                         "object-cover w-full h-full",
                         "transition-transform duration-500 ease-in-out",
                         "group-hover:scale-105",
-                        "motion-reduce:group-hover:scale-100"
+                        "motion-reduce:group-hover:scale-100",
                       )}
                     />
                     {/* Hover affordance overlay — Visibility of System Status (Nielsen) */}
@@ -84,11 +84,11 @@ const ProjectsGrid: React.FC<ProjectsGridProps> = ({ projects }) => {
                         "absolute inset-0 flex items-center justify-center",
                         "bg-black/50 opacity-0 group-hover:opacity-100",
                         "transition-opacity duration-300",
-                        "motion-reduce:hidden"
+                        "motion-reduce:hidden",
                       )}
                       aria-hidden="true"
                     >
-                      <span className="text-white text-sm font-secondary font-medium tracking-wide px-4 py-2 rounded-full border border-white/30 bg-white/10">
+                      <span className="text-white text-[clamp(13px,1.4vw,15px)] font-secondary font-medium tracking-wide px-4 py-2 rounded-full border border-white/30 bg-white/10">
                         View Details →
                       </span>
                     </div>
@@ -103,7 +103,7 @@ const ProjectsGrid: React.FC<ProjectsGridProps> = ({ projects }) => {
               {/* Card body */}
               <div className="p-[clamp(16px,3vw,24px)] flex-1 flex flex-col">
                 <div className="flex justify-between items-start mb-[clamp(8px,1.5vw,12px)]">
-                  <h3 className="text-[clamp(1.1rem,1.8vw,1.35rem)] font-semibold font-secondary text-foreground m-0 leading-snug pr-2">
+                  <h3 className="text-[clamp(16px,2.1vw,20px)] font-semibold font-secondary text-foreground m-0 leading-snug pr-2">
                     {project.title}
                   </h3>
                   <div className="flex gap-3 flex-shrink-0 mt-0.5">
@@ -134,7 +134,7 @@ const ProjectsGrid: React.FC<ProjectsGridProps> = ({ projects }) => {
                   </div>
                 </div>
 
-                <p className="text-[clamp(0.85rem,1vw,0.925rem)] text-muted-foreground leading-relaxed mb-[clamp(16px,2vw,20px)] flex-1 line-clamp-3">
+                <p className="text-[clamp(14px,2.2vw,16px)] text-muted-foreground font-secondary leading-relaxed mb-[clamp(16px,2vw,20px)] flex-1 line-clamp-3">
                   {project.description}
                 </p>
 
@@ -143,13 +143,13 @@ const ProjectsGrid: React.FC<ProjectsGridProps> = ({ projects }) => {
                   {visibleTags.map((tag) => (
                     <span
                       key={tag}
-                      className="text-[11px] px-2.5 py-1 bg-white/[0.05] border border-white/[0.08] rounded-full text-muted-foreground"
+                      className="text-[clamp(11px,1.2vw,13px)] font-secondary px-2.5 py-1 bg-white/[0.05] border border-white/[0.08] rounded-full text-muted-foreground"
                     >
                       {tag}
                     </span>
                   ))}
                   {overflowCount > 0 && (
-                    <span className="text-[11px] px-2.5 py-1 bg-brand-blue/10 border border-brand-blue/20 rounded-full text-brand-blue/80">
+                    <span className="text-[clamp(11px,1.2vw,13px)] font-secondary px-2.5 py-1 bg-brand-blue/10 border border-brand-blue/20 rounded-full text-brand-blue/80">
                       +{overflowCount} more
                     </span>
                   )}

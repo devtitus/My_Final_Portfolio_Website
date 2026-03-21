@@ -40,12 +40,14 @@ const ProjectsHero: React.FC = () => {
       </h1>
       <p
         className={cn(
-          "text-[clamp(16px,1vw,20px)] text-muted-foreground leading-relaxed",
+          "text-[clamp(16px,1vw,18px)] text-muted-foreground leading-relaxed",
           "max-w-[600px] max-sm:text-left",
           "max-sm:max-w-full max-sm:mx-auto",
         )}
       >
-        Each project represents a unique challenge and learning opportunity. From enterprise platforms to personal experiments, I approach every build with the same commitment to quality and innovation.
+        Each project represents a unique challenge and learning opportunity.
+        From enterprise platforms to personal experiments, I approach every
+        build with the same commitment to quality and innovation.
       </p>
     </section>
   );
