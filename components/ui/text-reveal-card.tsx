@@ -44,7 +44,10 @@ export const TextRevealCard = ({
     const { clientX } = event;
     if (cardRef.current) {
       const relativeX = clientX - left.current;
-      const percentage = Math.max(0, Math.min(100, (relativeX / localWidth.current) * 100));
+      const percentage = Math.max(
+        0,
+        Math.min(100, (relativeX / localWidth.current) * 100),
+      );
       widthPercentage.set(percentage);
     }
   }
@@ -62,7 +65,10 @@ export const TextRevealCard = ({
     const clientX = event.touches[0]!.clientX;
     if (cardRef.current) {
       const relativeX = clientX - left.current;
-      const percentage = Math.max(0, Math.min(100, (relativeX / localWidth.current) * 100));
+      const percentage = Math.max(
+        0,
+        Math.min(100, (relativeX / localWidth.current) * 100),
+      );
       widthPercentage.set(percentage);
     }
   }
@@ -78,7 +84,7 @@ export const TextRevealCard = ({
       ref={cardRef}
       className={cn(
         "bg-[transparent] border border-none w-full h-full rounded-lg relative overflow-hidden flex flex-col justify-between",
-        className
+        className,
       )}
     >
       {children}
@@ -99,7 +105,7 @@ export const TextRevealCard = ({
             style={{
               textShadow: "4px 4px 15px rgba(0,0,0,0.5)",
             }}
-            className={`${styles.textRevealText} text-base sm:text-[3rem] py-10 font-bold text-white bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-300`}
+            className={`${styles.textRevealText} py-10 font-bold text-white bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-300`}
           >
             {revealText}
           </p>
@@ -109,7 +115,7 @@ export const TextRevealCard = ({
           style={{
             left: useTransform(widthPercentage, (val) => `${val}%`),
             rotate: rotateDeg,
-            opacity: useTransform(widthPercentage, (val) => val > 0 ? 1 : 0),
+            opacity: useTransform(widthPercentage, (val) => (val > 0 ? 1 : 0)),
           }}
           transition={isMouseOver ? { duration: 0 } : { duration: 0.4 }}
           className={`h-40 w-[8px] bg-gradient-to-b from-transparent via-neutral-800 to-transparent absolute z-50 will-change-transform`}
@@ -119,7 +125,7 @@ export const TextRevealCard = ({
           className={`${styles.mask} overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,white,transparent)]`}
         >
           <p
-            className={`${styles.textRevealText} text-base py-10 font-bold bg-clip-text text-transparent bg-[#323238]`}
+            className={`${styles.textRevealText} py-10 font-bold bg-clip-text text-transparent bg-[#323238]`}
           >
             {text}
           </p>
@@ -138,7 +144,7 @@ export const TextRevealCardTitle = ({
   className?: string;
 }) => {
   return (
-    <h2 className={twMerge(`text-white text-lg mt-3 ${styles.title}`, className)}>
+    <h2 className={twMerge(`text-white mt-3 ${styles.title}`, className)}>
       {children}
     </h2>
   );
@@ -152,7 +158,7 @@ export const TextRevealCardDescription = ({
   className?: string;
 }) => {
   return (
-    <p className={twMerge(`text-[#a9a9a9] text-sm ${styles.text}`, className)}>
+    <p className={twMerge(`text-[#a9a9a9] ${styles.text}`, className)}>
       {children}
     </p>
   );
