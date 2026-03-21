@@ -17,32 +17,36 @@ const GithubIcon = () => (
   </svg>
 );
 
-
-
 const Footer: React.FC = () => {
   return (
-    <footer className={cn(
-      "relative px-[clamp(16px,4vw,60px)] py-[clamp(40px,5vw,60px)] pb-[clamp(30px,4vw,40px)] flex flex-col items-center",
-      "bg-gradient-to-b from-black/80 to-black/95",
-      "border-t border-brand-blue/20",
-      // Ambient glow shade
-      "after:content-[''] after:absolute after:inset-0 after:bg-[radial-gradient(circle_at_50%_100%,rgba(0,87,224,0.1),transparent_70%)] after:pointer-events-none",
-      // Top glow
-      "before:content-[''] before:absolute before:top-0 before:left-0 before:right-0 before:h-px",
-      "before:bg-gradient-to-r before:from-transparent before:via-brand-blue/40 before:to-transparent",
-      // Mobile
-      "max-lg:px-4 max-lg:py-8 max-lg:pb-6"
-    )}>
-      <div className={cn(
-        "flex justify-center items-start gap-[clamp(14px,1vw,24px)]",
-        "animate-fade-in-up motion-reduce:animate-none",
-        "max-lg:flex-col w-full max-w-[1400px]",
-        "max-sm:flex-col-reverse"
-      )}>
-        <div className={cn(
-          "flex flex-col gap-[clamp(16px,2vw,24px)] flex-1",
-          "max-lg:w-full max-sm:items-center"
-        )}>
+    <footer
+      className={cn(
+        "relative px-[clamp(16px,4vw,60px)] py-[clamp(40px,5vw,60px)] pb-[clamp(30px,4vw,40px)] flex flex-col items-center",
+        "bg-gradient-to-b from-black/80 to-black/95",
+        "border-t border-brand-blue/20",
+        // Ambient glow shade
+        "after:content-[''] after:absolute after:inset-0 after:bg-[radial-gradient(circle_at_50%_100%,rgba(0,87,224,0.1),transparent_70%)] after:pointer-events-none",
+        // Top glow
+        "before:content-[''] before:absolute before:top-0 before:left-0 before:right-0 before:h-px",
+        "before:bg-gradient-to-r before:from-transparent before:via-brand-blue/40 before:to-transparent",
+        // Mobile
+        "max-lg:px-4 max-lg:py-8 max-lg:pb-6",
+      )}
+    >
+      <div
+        className={cn(
+          "flex justify-center items-start gap-[clamp(14px,1vw,24px)]",
+          "animate-fade-in-up motion-reduce:animate-none",
+          "max-lg:flex-col w-full max-w-[1400px]",
+          "max-sm:flex-col-reverse",
+        )}
+      >
+        <div
+          className={cn(
+            "flex flex-col gap-[clamp(16px,2vw,24px)] flex-1",
+            "max-lg:w-full max-sm:items-center",
+          )}
+        >
           <div className="flex items-center">
             <Image
               src={"/navbar/logo.png"}
@@ -53,15 +57,17 @@ const Footer: React.FC = () => {
                 "w-16 h-16 aspect-square",
                 "drop-shadow-[0_0_20px_rgba(0,87,224,0.3)]",
                 "transition-[filter] duration-300",
-                "hover:drop-shadow-[0_0_30px_rgba(0,87,224,0.5)]"
+                "hover:drop-shadow-[0_0_30px_rgba(0,87,224,0.5)]",
               )}
             />
           </div>
-          <p className={cn(
-            "text-white/75 font-secondary text-[clamp(14px,2.2vw,16px)] font-normal leading-relaxed",
-            "max-w-[320px] mb-4",
-            "max-lg:max-w-full max-lg:m-0 max-sm:text-center"
-          )}>
+          <p
+            className={cn(
+              "text-white/75 font-secondary text-[clamp(14px,2.2vw,16px)] font-normal leading-relaxed",
+              "max-w-[320px] mb-4",
+              "max-lg:max-w-full max-lg:m-0 max-sm:text-center",
+            )}
+          >
             I&apos;m Melwyn - a full-stack developer, freelancer & problem
             solver. Thanks for checking out my site!
           </p>
@@ -70,16 +76,20 @@ const Footer: React.FC = () => {
           </p>
         </div>
 
-        <div className={cn(
-          "flex gap-[clamp(2rem,8vw,6rem)] flex-1",
-          "max-lg:w-full max-lg:mt-6 max-lg:mb-6",
-          "max-sm:grid max-sm:grid-cols-3 max-sm:gap-[clamp(2rem,8vw,6rem)]"
-        )}>
-          <div className={cn(
-            "flex flex-col gap-[clamp(12px,2vw,16px)] flex-1",
-            "max-lg:w-full max-lg:gap-4",
-            "max-sm:items-center"
-          )}>
+        <div
+          className={cn(
+            "flex gap-[clamp(2rem,8vw,6rem)] flex-1",
+            "max-lg:w-full max-lg:mt-6 max-lg:mb-6",
+            "max-sm:grid max-sm:grid-cols-3 max-sm:gap-[clamp(2rem,8vw,6rem)]",
+          )}
+        >
+          <div
+            className={cn(
+              "flex flex-col gap-[clamp(12px,2vw,16px)] flex-1",
+              "max-lg:w-full max-lg:gap-4",
+              "max-sm:items-center",
+            )}
+          >
             <h3 className="text-white/95 font-secondary text-[clamp(15px,1.8vw,17px)] font-medium leading-normal m-0 tracking-[0.02em]">
               General
             </h3>
@@ -93,7 +103,7 @@ const Footer: React.FC = () => {
                   "after:content-[''] after:absolute after:bottom-[-2px] after:left-0",
                   "after:w-0 after:h-px after:bg-gradient-to-r after:from-brand-blue after:to-transparent",
                   "after:transition-[width] after:duration-300",
-                  "hover:text-white/95 hover:translate-x-1 hover:after:w-full"
+                  "hover:text-white/95 hover:translate-x-1 hover:after:w-full",
                 )}
               >
                 Home
@@ -106,7 +116,7 @@ const Footer: React.FC = () => {
                   "after:content-[''] after:absolute after:bottom-[-2px] after:left-0",
                   "after:w-0 after:h-px after:bg-gradient-to-r after:from-brand-blue after:to-transparent",
                   "after:transition-[width] after:duration-300",
-                  "hover:text-white/95 hover:translate-x-1 hover:after:w-full"
+                  "hover:text-white/95 hover:translate-x-1 hover:after:w-full",
                 )}
               >
                 About
@@ -119,7 +129,7 @@ const Footer: React.FC = () => {
                   "after:content-[''] after:absolute after:bottom-[-2px] after:left-0",
                   "after:w-0 after:h-px after:bg-gradient-to-r after:from-brand-blue after:to-transparent",
                   "after:transition-[width] after:duration-300",
-                  "hover:text-white/95 hover:translate-x-1 hover:after:w-full"
+                  "hover:text-white/95 hover:translate-x-1 hover:after:w-full",
                 )}
               >
                 Projects
@@ -127,11 +137,13 @@ const Footer: React.FC = () => {
             </nav>
           </div>
 
-          <div className={cn(
-            "flex flex-col gap-[clamp(12px,2vw,16px)] flex-1",
-            "max-lg:w-full max-lg:gap-4",
-            "max-sm:items-center"
-          )}>
+          <div
+            className={cn(
+              "flex flex-col gap-[clamp(12px,2vw,16px)] flex-1",
+              "max-lg:w-full max-lg:gap-4",
+              "max-sm:items-center",
+            )}
+          >
             <h3 className="text-white/95 font-secondary text-[clamp(15px,1.8vw,17px)] font-medium leading-normal m-0 tracking-[0.02em]">
               More
             </h3>
@@ -144,7 +156,7 @@ const Footer: React.FC = () => {
                   "after:content-[''] after:absolute after:bottom-[-2px] after:left-0",
                   "after:w-0 after:h-px after:bg-gradient-to-r after:from-brand-blue after:to-transparent",
                   "after:transition-[width] after:duration-300",
-                  "hover:text-white/95 hover:translate-x-1 hover:after:w-full"
+                  "hover:text-white/95 hover:translate-x-1 hover:after:w-full",
                 )}
               >
                 Contact
@@ -152,15 +164,21 @@ const Footer: React.FC = () => {
             </nav>
           </div>
 
-          <div className={cn(
-            "flex flex-col gap-[clamp(12px,2vw,16px)] flex-1",
-            "max-lg:w-full max-lg:gap-4 max-sm:items-center"
-          )}>
+          <div
+            className={cn(
+              "flex flex-col gap-[clamp(12px,2vw,16px)] flex-1",
+              "max-lg:w-full max-lg:gap-4 max-sm:items-center",
+            )}
+          >
             <h3 className="text-white/95 font-secondary text-[clamp(15px,1.8vw,17px)] font-medium leading-normal m-0 tracking-[0.02em]">
               Social
             </h3>
             <div className="flex gap-3 items-start max-sm:flex-col">
-              <Link href="https://www.linkedin.com/in/melwyn-john-8125bb214" target="_blank" rel="noopener noreferrer">
+              <Link
+                href="https://www.linkedin.com/in/melwyn-john-8125bb214"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <IconButton
                   icon={<LinkedInIcon />}
                   tooltip="LinkedIn"
@@ -168,7 +186,11 @@ const Footer: React.FC = () => {
                   size="md"
                 />
               </Link>
-              <Link href="https://github.com/devtitus" target="_blank" rel="noopener noreferrer">
+              <Link
+                href="https://github.com/devtitus"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <IconButton
                   icon={<GithubIcon />}
                   tooltip="Github"
