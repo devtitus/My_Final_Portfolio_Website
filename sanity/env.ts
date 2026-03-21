@@ -1,5 +1,6 @@
-export const apiVersion =
-  process.env.NEXT_PUBLIC_SANITY_API_VERSION || '2024-01-01'
+const rawApiVersion = process.env.NEXT_PUBLIC_SANITY_API_VERSION || ''
+const isValidApiVersion = /^\d{4}-\d{2}-\d{2}$/.test(rawApiVersion) || rawApiVersion === '1'
+export const apiVersion = isValidApiVersion ? rawApiVersion : '2024-01-01'
 
 export const dataset = assertValue(
   process.env.NEXT_PUBLIC_SANITY_DATASET,
