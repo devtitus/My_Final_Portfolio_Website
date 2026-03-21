@@ -1,6 +1,7 @@
 "use client";
-import React, { useState, memo } from "react";
+import React, { useState, memo, useRef } from "react";
 import { cn } from "@/lib/utils";
+import { useInView } from "framer-motion";
 import { SkillSpinningImage } from "@/lib/utils/icons";
 import SkillCard from "@/components/features/home/skillCard";
 import { SectionHeader, GlassButton } from "@/components/ui";
@@ -20,6 +21,8 @@ interface SkillsSectionProps {
  */
 const SkillsSection = memo(function SkillsSection({ skills }: SkillsSectionProps) {
   const [showAllSkills, setShowAllSkills] = useState(false);
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "0px 0px -80px 0px" });
 
   const shouldShowToggle = skills.length > 10;
   const visibleSkills = shouldShowToggle && !showAllSkills ? skills.slice(0, 10) : skills;
@@ -30,13 +33,15 @@ const SkillsSection = memo(function SkillsSection({ skills }: SkillsSectionProps
   }
 
   return (
-    <section className={cn(
-      "min-h-svh px-[clamp(16px,4vw,60px)] py-[clamp(60px,10vh,100px)]",
-      "flex flex-col justify-center items-center overflow-hidden relative",
-      "scroll-mt-20",
-      "max-sm:min-h-auto max-sm:py-[60px]",
-      "max-lg:min-h-auto max-lg:py-[80px]"
-    )}>
+    <section
+      ref={sectionRef}
+      className={cn(
+        "min-h-svh px-[clamp(16px,4vw,60px)] py-[clamp(60px,10vh,100px)]",
+        "flex flex-col justify-center items-center overflow-hidden relative",
+        "scroll-mt-20",
+        "max-sm:min-h-auto max-sm:py-[60px]",
+        "max-lg:min-h-auto max-lg:py-[80px]"
+      )}>
       <div className={cn(
         "w-full flex flex-col items-center justify-center",
         "gap-fluid-lg animate-fade-in-up",
@@ -47,12 +52,15 @@ const SkillsSection = memo(function SkillsSection({ skills }: SkillsSectionProps
           "flex flex-col items-center gap-fluid-sm",
           "sm:flex-row sm:items-center sm:gap-fluid-md"
         )}>
-          {/* Spinning accent — larger on mobile (stacked), compact inline on sm+ */}
-          <div className={cn(
-            "animate-spin-slow motion-reduce:animate-none shrink-0",
-            "w-[clamp(140px,35vw,180px)] h-[clamp(140px,35vw,180px)]",
-            "sm:w-[clamp(80px,8vw,112px)] sm:h-[clamp(80px,8vw,112px)]",
-          )}>
+          {/* Spinning accent — will-change promotes to own GPU layer, eliminating repaint cost */}
+          <div
+            className={cn(
+              "animate-spin-slow motion-reduce:animate-none shrink-0",
+              "w-[clamp(140px,35vw,180px)] h-[clamp(140px,35vw,180px)]",
+              "sm:w-[clamp(80px,8vw,112px)] sm:h-[clamp(80px,8vw,112px)]",
+            )}
+            style={{ willChange: "transform" }}
+          >
             <SkillSpinningImage className="aspect-square w-full h-full" />
           </div>
 
@@ -64,12 +72,12 @@ const SkillsSection = memo(function SkillsSection({ skills }: SkillsSectionProps
           />
         </div>
 
-        {/* Skills Grid — predictable columns, no orphaned rows */}
+        {/* Skills Grid — only renders once section enters viewport */}
         <div className={cn(
           "w-full max-w-[1400px] grid gap-fluid-sm",
           "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
         )}>
-          {visibleSkills.map((skill) => (
+          {isInView && visibleSkills.map((skill) => (
             <SkillCard
               key={skill.id}
               skillName={skill.label}
