@@ -58,14 +58,14 @@ const Footer: React.FC = () => {
             />
           </div>
           <p className={cn(
-            "text-white/75 font-secondary text-[clamp(16px,1.25vw,18px)] font-normal leading-relaxed",
+            "text-white/75 font-secondary text-[clamp(14px,2.2vw,16px)] font-normal leading-relaxed",
             "max-w-[320px] mb-4",
             "max-lg:max-w-full max-lg:m-0 max-sm:text-center"
           )}>
             I&apos;m Melwyn - a full-stack developer, freelancer & problem
             solver. Thanks for checking out my site!
           </p>
-          <p className="text-white/50 font-secondary text-[clamp(14px,1.5vw,16px)] font-normal leading-relaxed m-0">
+          <p className="text-white/50 font-secondary text-[clamp(13px,1.6vw,15px)] font-normal leading-relaxed m-0">
             © {new Date().getFullYear()} Melwyn Titus
           </p>
         </div>
@@ -80,14 +80,14 @@ const Footer: React.FC = () => {
             "max-lg:w-full max-lg:gap-4",
             "max-sm:items-center"
           )}>
-            <h3 className="text-white/95 font-secondary text-[clamp(16px,1.5vw,18px)] font-medium leading-normal m-0 tracking-[0.02em]">
+            <h3 className="text-white/95 font-secondary text-[clamp(15px,1.8vw,17px)] font-medium leading-normal m-0 tracking-[0.02em]">
               General
             </h3>
             <nav className="flex flex-col gap-3 max-sm:items-center">
               <Link
                 href="/"
                 className={cn(
-                  "relative w-fit text-white/65 font-secondary text-[clamp(16px,1.5vw,18px)] font-normal leading-relaxed",
+                  "relative w-fit text-white/65 font-secondary text-[clamp(14px,2vw,16px)] font-normal leading-relaxed",
                   "transition-all duration-300",
                   // Underline effect
                   "after:content-[''] after:absolute after:bottom-[-2px] after:left-0",
@@ -101,7 +101,7 @@ const Footer: React.FC = () => {
               <Link
                 href="/about"
                 className={cn(
-                  "relative w-fit text-white/65 font-secondary text-[clamp(16px,1.5vw,18px)] font-normal leading-relaxed",
+                  "relative w-fit text-white/65 font-secondary text-[clamp(14px,2vw,16px)] font-normal leading-relaxed",
                   "transition-all duration-300",
                   "after:content-[''] after:absolute after:bottom-[-2px] after:left-0",
                   "after:w-0 after:h-px after:bg-gradient-to-r after:from-brand-blue after:to-transparent",
@@ -114,7 +114,7 @@ const Footer: React.FC = () => {
               <Link
                 href="/projects"
                 className={cn(
-                  "relative w-fit text-white/65 font-secondary text-[clamp(16px,1.5vw,18px)] font-normal leading-relaxed",
+                  "relative w-fit text-white/65 font-secondary text-[clamp(14px,2vw,16px)] font-normal leading-relaxed",
                   "transition-all duration-300",
                   "after:content-[''] after:absolute after:bottom-[-2px] after:left-0",
                   "after:w-0 after:h-px after:bg-gradient-to-r after:from-brand-blue after:to-transparent",
@@ -132,14 +132,14 @@ const Footer: React.FC = () => {
             "max-lg:w-full max-lg:gap-4",
             "max-sm:items-center"
           )}>
-            <h3 className="text-white/95 font-secondary text-[clamp(16px,1.5vw,18px)] font-medium leading-normal m-0 tracking-[0.02em]">
+            <h3 className="text-white/95 font-secondary text-[clamp(15px,1.8vw,17px)] font-medium leading-normal m-0 tracking-[0.02em]">
               More
             </h3>
             <nav className="flex flex-col gap-3 max-sm:items-center">
               <Link
                 href="/contact"
                 className={cn(
-                  "relative w-fit text-white/65 font-secondary text-[clamp(16px,1.5vw,18px)] font-normal leading-relaxed",
+                  "relative w-fit text-white/65 font-secondary text-[clamp(14px,2vw,16px)] font-normal leading-relaxed",
                   "transition-all duration-300",
                   "after:content-[''] after:absolute after:bottom-[-2px] after:left-0",
                   "after:w-0 after:h-px after:bg-gradient-to-r after:from-brand-blue after:to-transparent",
@@ -156,7 +156,7 @@ const Footer: React.FC = () => {
             "flex flex-col gap-[clamp(12px,2vw,16px)] flex-1",
             "max-lg:w-full max-lg:gap-4 max-sm:items-center"
           )}>
-            <h3 className="text-white/95 font-secondary text-[clamp(16px,1.5vw,18px)] font-medium leading-normal m-0 tracking-[0.02em]">
+            <h3 className="text-white/95 font-secondary text-[clamp(15px,1.8vw,17px)] font-medium leading-normal m-0 tracking-[0.02em]">
               Social
             </h3>
             <div className="flex gap-3 items-start max-sm:flex-col">
