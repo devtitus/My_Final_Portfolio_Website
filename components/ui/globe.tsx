@@ -79,6 +79,7 @@ export function Globe({ globeConfig, data }: WorldProps) {
         const ThreeGlobe = mod.default;
         globeRef.current = new ThreeGlobe();
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        if (!groupRef.current) return;
         (groupRef.current as any).add(globeRef.current);
         setIsInitialized(true);
       });

@@ -23,8 +23,8 @@ const Footer: React.FC = () => {
   return (
     <footer className={cn(
       "relative px-[clamp(16px,4vw,60px)] py-[clamp(40px,5vw,60px)] pb-[clamp(30px,4vw,40px)] flex flex-col items-center",
-      "bg-gradient-to-b from-black/60 to-black/80",
-      "backdrop-blur-xl border-t border-brand-blue/20",
+      "bg-gradient-to-b from-black/80 to-black/95",
+      "border-t border-brand-blue/20",
       // Ambient glow shade
       "after:content-[''] after:absolute after:inset-0 after:bg-[radial-gradient(circle_at_50%_100%,rgba(0,87,224,0.1),transparent_70%)] after:pointer-events-none",
       // Top glow
