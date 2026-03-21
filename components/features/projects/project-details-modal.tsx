@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dialog";
 import { ProjectItem } from "@/lib/types/sanity";
 import { MDXRemote } from "next-mdx-remote";
-import { Github, Globe, Figma } from "lucide-react";
+import { Github, Globe, Figma, X } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { ScreenshotsCarousel } from "./screenshots-carousel";
@@ -31,156 +31,193 @@ export function ProjectDetailsModal({
     ...(project.screenshots ?? []),
   ].filter((img): img is string => Boolean(img));
 
+  const allTags = project.technologies?.length
+    ? project.technologies
+    : (project.tags ?? []).map((t) => ({ id: t, label: t }));
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent
         className={cn(
-          "bg-[radial-gradient(ellipse_at_center,rgba(0,87,224,0.12)_0%,rgba(0,87,224,0.04)_30%,rgba(10,10,15,0.98)_100%)]",
-          "border border-[var(--glass-border-color)]",
+          "bg-[radial-gradient(ellipse_at_top,rgba(0,87,224,0.10)_0%,rgba(0,87,224,0.03)_35%,rgba(8,8,12,0.99)_100%)]",
+          "border border-white/[0.08]",
           "text-foreground max-w-[90vw] w-[1000px]",
           "h-[88vh] max-h-[88vh] max-sm:h-[92svh] max-sm:max-h-[92svh]",
           "overflow-hidden flex flex-col p-0 rounded-2xl",
-          "shadow-[0_25px_50px_-12px_rgba(0,0,0,0.6)] border-none gap-0",
+          "shadow-[0_32px_64px_rgba(0,0,0,0.7)] gap-0",
           "sm:max-w-[1000px]",
           "mt-[48px] lg:mt-[40px]",
         )}
       >
+        {/* Sticky header */}
+        <div
+          className={cn(
+            "flex items-start justify-between gap-4",
+            "px-[clamp(20px,4vw,40px)] pt-[clamp(24px,3vw,36px)] pb-[clamp(16px,2vw,24px)]",
+            "border-b border-white/[0.06]",
+            "bg-[rgba(8,8,12,0.6)]",
+            "flex-shrink-0",
+          )}
+        >
+          <DialogHeader className="flex-1 min-w-0 space-y-0">
+            <DialogTitle className="font-secondary text-[clamp(22px,2.4vw,32px)] text-left leading-snug text-foreground truncate">
+              {project.title}
+            </DialogTitle>
+            {project.tagline && (
+              <p className="font-secondary text-[14px] text-white/50 text-left mt-1 leading-relaxed">
+                {project.tagline}
+              </p>
+            )}
+          </DialogHeader>
+
+          {/* Actions row */}
+          <div className="flex items-center gap-2 flex-shrink-0 mt-0.5">
+            {project.projectLink && (
+              <Link
+                href={project.projectLink}
+                target="_blank"
+                className={cn(
+                  "rounded-full border border-white/[0.10]",
+                  "bg-white/[0.05] flex items-center gap-1.5 px-3 h-9",
+                  "text-white/70 text-[13px] font-secondary font-medium",
+                  "transition-all duration-200",
+                  "hover:bg-brand-blue hover:border-brand-blue hover:text-white",
+                  "max-sm:px-2 max-sm:gap-0",
+                )}
+                aria-label="View Live Site"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Globe className="w-3.5 h-3.5 flex-shrink-0" />
+                <span className="hidden sm:inline">Live</span>
+              </Link>
+            )}
+            {project.codeLink && (
+              <Link
+                href={project.codeLink}
+                target="_blank"
+                className={cn(
+                  "rounded-full border border-white/[0.10]",
+                  "bg-white/[0.05] flex items-center gap-1.5 px-3 h-9",
+                  "text-white/70 text-[13px] font-secondary font-medium",
+                  "transition-all duration-200",
+                  "hover:bg-white/[0.12] hover:border-white/20 hover:text-white",
+                  "max-sm:px-2 max-sm:gap-0",
+                )}
+                aria-label="View Source Code"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Github className="w-3.5 h-3.5 flex-shrink-0" />
+                <span className="hidden sm:inline">Code</span>
+              </Link>
+            )}
+            {project.designLink && (
+              <Link
+                href={project.designLink}
+                target="_blank"
+                className={cn(
+                  "rounded-full border border-white/[0.10]",
+                  "bg-white/[0.05] flex items-center gap-1.5 px-3 h-9",
+                  "text-white/70 text-[13px] font-secondary font-medium",
+                  "transition-all duration-200",
+                  "hover:bg-white/[0.12] hover:border-white/20 hover:text-white",
+                  "max-sm:px-2 max-sm:gap-0",
+                )}
+                aria-label="View Design"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Figma className="w-3.5 h-3.5 flex-shrink-0" />
+                <span className="hidden sm:inline">Design</span>
+              </Link>
+            )}
+            {/* Explicit close button — Fitts's Law: large enough target */}
+            <button
+              onClick={() => onClose(false)}
+              aria-label="Close project details"
+              className={cn(
+                "rounded-full border border-white/[0.10]",
+                "bg-white/[0.05] flex items-center justify-center w-9 h-9",
+                "text-white/50 transition-all duration-200",
+                "hover:bg-white/[0.12] hover:border-white/20 hover:text-white",
+              )}
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+
+        {/* Scrollable body */}
         <div
           data-lenis-prevent
           className={cn(
             "overflow-y-auto flex-1",
-            "py-[clamp(32px,4vw,40px)] px-[clamp(20px,4vw,40px)]",
+            "px-[clamp(20px,4vw,40px)] py-[clamp(24px,3vw,36px)]",
             "[&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent",
             "[&::-webkit-scrollbar-thumb]:bg-white/10 [&::-webkit-scrollbar-thumb]:rounded-full",
             "[&::-webkit-scrollbar-thumb:hover]:bg-white/20",
           )}
         >
-          <DialogHeader
-            className={cn(
-              "flex justify-between items-start",
-              "mb-[clamp(24px,4vw,32px)]",
-              "max-sm:flex-col max-sm:gap-2",
-            )}
-          >
-            <div className="flex flex-col gap-2">
-              <DialogTitle className="font-secondary text-[clamp(28px,3.25vw,38px)] text-left leading-tight text-foreground">
-                {project.title}
-              </DialogTitle>
-              {project.tagline && (
-                <span className="font-secondary text-[var(--skill-text-color)] text-left text-[clamp(16px,1vw,18px)] mb-[clamp(4px,1vw,8px)]">
-                  {project.tagline}
-                </span>
-              )}
+          {/* Gallery section */}
+          {carouselImages.length > 0 && (
+            <div className="mb-[clamp(28px,4vw,40px)]">
+              <p className="text-[11px] font-secondary font-semibold text-white/30 uppercase tracking-[0.12em] mb-3">
+                Gallery
+              </p>
+              <ScreenshotsCarousel
+                screenshots={carouselImages}
+                title={project.title}
+              />
             </div>
+          )}
 
-            <div
-              className={cn(
-                "flex gap-3",
-                "max-sm:w-full max-sm:justify-start self-end",
-              )}
-            >
-              {project.projectLink && (
-                <Link
-                  href={project.projectLink}
-                  target="_blank"
-                  className={cn(
-                    "rounded-full border border-[var(--glass-border-color)]",
-                    "bg-muted flex items-center justify-center text-foreground",
-                    "transition-all duration-200",
-                    "hover:bg-primary hover:-translate-y-0.5 hover:border-primary",
-                    "w-[clamp(32px,3vw,44px)] h-[clamp(32px,3vw,44px)]",
-                    "max-sm:w-10 max-sm:h-10",
-                  )}
-                  aria-label="View Live Site"
-                >
-                  <Globe className={cn("w-5 h-5", "max-sm:w-4 max-sm:h-4")} />
-                </Link>
-              )}
-              {project.codeLink && (
-                <Link
-                  href={project.codeLink}
-                  target="_blank"
-                  className={cn(
-                    "rounded-full border border-[var(--glass-border-color)]",
-                    "bg-muted flex items-center justify-center text-foreground",
-                    "transition-all duration-200",
-                    "hover:bg-primary hover:-translate-y-0.5 hover:border-primary",
-                    "w-[clamp(32px,3vw,44px)] h-[clamp(32px,3vw,44px)]",
-                    "max-sm:w-10 max-sm:h-10",
-                  )}
-                  aria-label="View Source Code"
-                >
-                  <Github className={cn("w-5 h-5", "max-sm:w-4 max-sm:h-4")} />
-                </Link>
-              )}
-              {project.designLink && (
-                <Link
-                  href={project.designLink}
-                  target="_blank"
-                  className={cn(
-                    "rounded-full border border-[var(--glass-border-color)]",
-                    "bg-muted flex items-center justify-center text-foreground",
-                    "transition-all duration-200",
-                    "hover:bg-primary hover:-translate-y-0.5 hover:border-primary",
-                    "w-[clamp(32px,3vw,44px)] h-[clamp(32px,3vw,44px)]",
-                    "max-sm:w-10 max-sm:h-10",
-                  )}
-                  aria-label="View Design"
-                >
-                  <Figma className={cn("w-5 h-5", "max-sm:w-4 max-sm:h-4")} />
-                </Link>
-              )}
-            </div>
-          </DialogHeader>
-
-          <div className="mb-[clamp(24px,4vw,40px)]">
-            <ScreenshotsCarousel
-              screenshots={carouselImages}
-              title={project.title}
-            />
-          </div>
-
-          <div className="flex flex-wrap gap-2 mb-[clamp(24px,4vw,32px)]">
-            {project.technologies?.map((tech) => (
-              <span
-                key={tech.id}
-                className="text-[12px] px-2.5 py-1 bg-white/5 text-[var(--skill-text-color)] border border-white/10 rounded-full whitespace-nowrap"
-              >
-                {tech.label}
-              </span>
-            ))}
-            {!project.technologies?.length &&
-              project.tags?.map((tag) => (
-                <span
-                  key={tag}
-                  className="text-[12px] px-2.5 py-1 bg-white/5 text-[var(--skill-text-color)] border border-white/10 rounded-full whitespace-nowrap"
-                >
-                  {tag}
-                </span>
-              ))}
-          </div>
-
-          <div className="text-[clamp(16px,1vw,18px)] leading-relaxed text-[var(--skill-text-color)]">
-            {project.serializedContent ? (
-              <div
-                className={cn(
-                  "prose prose-invert max-w-none",
-                  "prose-headings:font-secondary prose-headings:text-foreground",
-                  "prose-p:font-secondary prose-p:text-[var(--skill-text-color)]",
-                  "prose-li:font-secondary prose-li:text-[var(--skill-text-color)]",
-                  "prose-strong:text-foreground prose-strong:font-semibold",
-                  "prose-a:text-primary prose-a:no-underline hover:prose-a:underline",
-                  "prose-code:text-accent prose-code:bg-white/10 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none",
-                  "prose-pre:bg-[#08080a] prose-pre:border prose-pre:border-white/10",
-                  "prose-blockquote:border-l-primary prose-blockquote:bg-white/5 prose-blockquote:py-1 prose-blockquote:pr-4",
-                  "prose-hr:border-white/10",
-                )}
-              >
-                <MDXRemote {...project.serializedContent} />
+          {/* Tech stack section */}
+          {allTags.length > 0 && (
+            <div className="mb-[clamp(24px,3vw,36px)]">
+              <p className="text-[11px] font-secondary font-semibold text-white/30 uppercase tracking-[0.12em] mb-3">
+                Tech Stack
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {allTags.map((tech) => (
+                  <span
+                    key={typeof tech === "string" ? tech : tech.id}
+                    className="text-[12px] px-2.5 py-1 bg-white/[0.05] text-white/60 border border-white/[0.08] rounded-full whitespace-nowrap font-secondary"
+                  >
+                    {typeof tech === "string" ? tech : tech.label}
+                  </span>
+                ))}
               </div>
-            ) : (
-              <p>{project.description}</p>
-            )}
+            </div>
+          )}
+
+          {/* Prose content section */}
+          <div>
+            <p className="text-[11px] font-secondary font-semibold text-white/30 uppercase tracking-[0.12em] mb-4">
+              Overview
+            </p>
+            <div className="text-[15px] leading-[1.75] text-white/70">
+              {project.serializedContent ? (
+                <div
+                  className={cn(
+                    "prose prose-invert max-w-none",
+                    "prose-headings:font-secondary prose-headings:text-foreground prose-headings:font-semibold",
+                    "prose-h2:text-[18px] prose-h3:text-[16px]",
+                    "prose-p:font-secondary prose-p:text-white/70 prose-p:text-[15px] prose-p:leading-[1.75]",
+                    "prose-li:font-secondary prose-li:text-white/70 prose-li:text-[15px]",
+                    "prose-strong:text-foreground prose-strong:font-semibold",
+                    "prose-a:text-brand-blue prose-a:no-underline hover:prose-a:underline",
+                    "prose-code:text-blue-300 prose-code:bg-white/[0.08] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-[13px] prose-code:before:content-none prose-code:after:content-none",
+                    "prose-pre:bg-[#08080a] prose-pre:border prose-pre:border-white/10 prose-pre:text-[13px]",
+                    "prose-blockquote:border-l-brand-blue prose-blockquote:bg-white/[0.03] prose-blockquote:py-1 prose-blockquote:pr-4",
+                    "prose-hr:border-white/10",
+                  )}
+                >
+                  <MDXRemote {...project.serializedContent} />
+                </div>
+              ) : (
+                <p className="font-secondary text-white/70 text-[15px] leading-[1.75]">
+                  {project.description}
+                </p>
+              )}
+            </div>
           </div>
         </div>
       </DialogContent>

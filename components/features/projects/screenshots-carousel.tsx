@@ -43,10 +43,7 @@ export function ScreenshotsCarousel({
   }
 
   return (
-    <div className={cn("w-full space-y-[clamp(16px,2vw,24px)]")}>
-      <p className="text-[clamp(14px,1vw,16px)] text-[var(--skill-text-color)] font-secondary">
-        Project Gallery
-      </p>
+    <div className={cn("w-full space-y-3")}>
       <Carousel setApi={setApi} className="w-full">
         <CarouselContent className="gap-4">
           {screenshots.map((screenshot, index) => (

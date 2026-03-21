@@ -179,7 +179,7 @@ const CommandMenu = memo(function CommandMenu({
     <div className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden p-4 sm:p-0">
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black/60 backdrop-blur-[2px] animate-in fade-in duration-200"
+        className="fixed inset-0 bg-black/65 animate-in fade-in duration-150"
         onClick={handleClose}
       />
 
@@ -188,18 +188,17 @@ const CommandMenu = memo(function CommandMenu({
         ref={contentRef}
         className="relative z-50 w-full max-w-2xl animate-in zoom-in-95 slide-in-from-bottom-2 duration-200"
       >
-        {/* Glow Effect - Matching Body Gradient */}
+        {/* Glow Effect */}
         <div
-          className="absolute -inset-4 -z-10 rounded-xl opacity-50 blur-xl transition-all duration-500"
+          className="absolute -inset-4 -z-10 rounded-xl opacity-40 pointer-events-none"
           style={{
             background:
-              "radial-gradient(ellipse at center, rgba(0, 87, 224, 0.15) 0%, rgba(0, 87, 224, 0.05) 25%, transparent 50%)",
-            willChange: "opacity",
+              "radial-gradient(ellipse at center, rgba(0, 87, 224, 0.2) 0%, rgba(0, 87, 224, 0.06) 40%, transparent 70%)",
           }}
         />
 
         {/* Command Menu */}
-        <div className="relative overflow-hidden rounded-xl border border-white/10 bg-[#08080a]/80 shadow-2xl backdrop-blur-md">
+        <div className="relative overflow-hidden rounded-xl border border-white/[0.12] bg-[#0a0a0f] shadow-[0_24px_48px_rgba(0,0,0,0.7)]">
           <Command
             className="h-full w-full overflow-hidden bg-transparent"
             shouldFilter={true}
