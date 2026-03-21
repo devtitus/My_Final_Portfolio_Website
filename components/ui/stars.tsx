@@ -21,8 +21,8 @@ interface StarsBackgroundProps extends React.HTMLAttributes<HTMLDivElement> {
   twinkleProbability?: number;
   minStarSize?: number;
   maxStarSize?: number;
-  speed?: number; // Speed factor
-  starColor?: string; // Hex or rgb
+  speed?: number;
+  starColor?: string;
 }
 
 export const StarsBackground = ({
@@ -38,21 +38,18 @@ export const StarsBackground = ({
 }: StarsBackgroundProps) => {
   const [stars, setStars] = useState<Star[]>([]);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const isVisibleRef = useRef(true);
 
-  // Generate stars
   const generateStars = useCallback(
     (width: number, height: number): Star[] => {
       const area = width * height;
       const numStars = Math.floor(area * starDensity);
-      return Array.from({ length: numStars }, () => {
-        return {
-          x: Math.random() * width,
-          y: Math.random() * height,
-          z: Math.random(), // used for pseudo-depth or opacity
-          size:
-            Math.random() * (maxStarSize - minStarSize) + minStarSize,
-        };
-      });
+      return Array.from({ length: numStars }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        z: Math.random(),
+        size: Math.random() * (maxStarSize - minStarSize) + minStarSize,
+      }));
     },
     [starDensity, maxStarSize, minStarSize]
   );
@@ -65,7 +62,6 @@ export const StarsBackground = ({
         if (!ctx) return;
 
         const { width, height } = canvas.getBoundingClientRect();
-        // Handle high DPI displays - Cap at 1.5 to prevents mobile stutter
         const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
         canvas.width = width * dpr;
         canvas.height = height * dpr;
@@ -89,7 +85,6 @@ export const StarsBackground = ({
     };
   }, [starDensity, maxStarSize, minStarSize, generateStars]);
 
-  // Animation Loop
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -97,35 +92,32 @@ export const StarsBackground = ({
     if (!ctx) return;
 
     let animationFrameId: number;
-    // Pre-calculate dpr inverse to avoid doing it every frame
     const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
     const dprInv = 1 / dpr;
 
     const render = () => {
-      if (!canvas) return;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // Skip drawing when tab is hidden or element is off-screen
+      if (!isVisibleRef.current || document.hidden) {
+        animationFrameId = requestAnimationFrame(render);
+        return;
+      }
 
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = starColor;
+
+      const now = Date.now();
+      const canvasH = canvas.height * dprInv;
+      const canvasW = canvas.width * dprInv;
 
       stars.forEach((star) => {
         ctx.beginPath();
-
-        // Movement: Move stars upwards/float logic
         star.y -= 0.3 * speed;
-
-        // Wrap around
-        const height = canvas.height * dprInv;
-        const width = canvas.width * dprInv;
-
         if (star.y < 0) {
-          star.y = height;
-          star.x = Math.random() * width;
+          star.y = canvasH;
+          star.x = Math.random() * canvasW;
         }
-
-        // Twinkle effect
-        const opacity = 0.5 + 0.5 * Math.sin(Date.now() * 0.001 * star.z * 10);
+        const opacity = 0.5 + 0.5 * Math.sin(now * 0.001 * star.z * 10);
         ctx.globalAlpha = opacity;
-
         ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
         ctx.fill();
       });
@@ -133,10 +125,25 @@ export const StarsBackground = ({
       animationFrameId = requestAnimationFrame(render);
     };
 
+    // Pause when scrolled out of view
+    const observer = new IntersectionObserver(
+      ([entry]) => { isVisibleRef.current = entry.isIntersecting; },
+      { threshold: 0 }
+    );
+    observer.observe(canvas);
+
+    // Pause when tab is backgrounded
+    const handleVisibility = () => {
+      isVisibleRef.current = !document.hidden;
+    };
+    document.addEventListener("visibilitychange", handleVisibility);
+
     render();
 
     return () => {
       cancelAnimationFrame(animationFrameId);
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", handleVisibility);
     };
   }, [stars, starColor, speed]);
 
