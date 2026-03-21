@@ -36,16 +36,16 @@ const CommandItem = memo(function CommandItem({
     <Command.Item
       value={value}
       onSelect={onSelect}
-      className="group relative flex cursor-pointer select-none items-center rounded-lg px-2 py-2 text-sm outline-none data-[selected=true]:bg-white/10 data-[selected=true]:text-white transition-colors"
+      className="group relative flex cursor-pointer select-none items-center rounded-lg px-2 py-1.5 sm:py-2 text-sm outline-none data-[selected=true]:bg-white/10 data-[selected=true]:text-white transition-colors"
     >
-      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-white/5 bg-white/5 text-white/50 group-data-[selected=true]:text-white group-data-[selected=true]:border-white/20 group-data-[selected=true]:bg-white/10 transition-colors">
-        {icon}
+      <div className="flex h-7 w-7 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-md border border-white/5 bg-white/5 text-white/50 group-data-[selected=true]:text-white group-data-[selected=true]:border-white/20 group-data-[selected=true]:bg-white/10 transition-colors">
+        <span className="[&>svg]:h-3.5 [&>svg]:w-3.5 sm:[&>svg]:h-5 sm:[&>svg]:w-5">{icon}</span>
       </div>
-      <div className="ml-3 flex flex-col justify-center">
-        <span className="text-[14px] font-medium text-white/80 group-data-[selected=true]:text-white font-secondary">
+      <div className="ml-2 sm:ml-3 flex flex-col justify-center">
+        <span className="text-xs sm:text-sm font-medium text-white/80 group-data-[selected=true]:text-white font-secondary">
           {label}
         </span>
-        <span className="text-[12px] text-white/40 group-data-[selected=true]:text-white/60 font-secondary">
+        <span className="text-[10px] sm:text-xs text-white/40 group-data-[selected=true]:text-white/60 font-secondary">
           {description}
         </span>
       </div>
@@ -217,14 +217,14 @@ const CommandMenu = memo(function CommandMenu({
             shouldFilter={true}
           >
             {/* Input */}
-            <div className="flex items-center border-b border-white/10 px-4">
-              <SearchIcon className="mr-3 h-5 w-5 shrink-0 text-white/50" />
+            <div className="flex items-center border-b border-white/10 px-3 sm:px-4">
+              <SearchIcon className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 shrink-0 text-white/50" />
               <Command.Input
                 ref={inputRef}
                 value={search}
                 onValueChange={handleSearchChange}
                 placeholder="Type a command or search..."
-                className="flex h-14 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-white/50 text-white font-secondary"
+                className="flex h-11 sm:h-14 w-full rounded-md bg-transparent py-3 text-xs sm:text-sm outline-none placeholder:text-white/50 text-white font-secondary"
               />
               <button
                 className="ml-2 hidden sm:inline-flex h-6 select-none items-center gap-1 rounded border border-white/20 bg-white/5 px-2 text-[10px] font-medium text-white/70 hover:bg-white/10 transition-colors"
@@ -236,8 +236,8 @@ const CommandMenu = memo(function CommandMenu({
             </div>
 
             {/* List */}
-            <Command.List data-lenis-prevent className="max-h-[60vh] overflow-y-auto overflow-x-hidden p-2">
-              <Command.Empty className="py-6 text-center text-sm text-white/50 font-secondary">
+            <Command.List data-lenis-prevent className="max-h-[52vh] sm:max-h-[60vh] overflow-y-auto overflow-x-hidden p-1.5 sm:p-2">
+              <Command.Empty className="py-4 sm:py-6 text-center text-xs sm:text-sm text-white/50 font-secondary">
                 No results found.
               </Command.Empty>
 
