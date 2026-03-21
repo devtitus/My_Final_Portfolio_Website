@@ -8,15 +8,17 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Projects & Case Studies | Melwyn Titus",
-  description: "Exploring the intersection of design, engineering, and user experience.",
+  description:
+    "Exploring the intersection of design, engineering, and user experience.",
   alternates: {
-    canonical: '/projects',
+    canonical: "/projects",
   },
   openGraph: {
-    title: 'Projects & Case Studies | Melwyn Titus',
-    description: 'Exploring the intersection of design, engineering, and user experience.',
-    url: 'https://www.melwyn.co.in/projects',
-    images: ['/og-image.png'],
+    title: "Projects & Case Studies | Melwyn Titus",
+    description:
+      "Exploring the intersection of design, engineering, and user experience.",
+    url: "https://www.melwyn.co.in/projects",
+    images: ["/og-image.png"],
   },
 };
 

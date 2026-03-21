@@ -8,21 +8,25 @@ import { getSiteSettings } from "@/lib/services/sanity/getSiteSettings";
 import type { Metadata } from "next";
 
 // Code-split the below-fold timeline — still SSRs, just smaller initial JS bundle
-const AboutSelectedPath = dynamic(
-  () => import("@/components/features/about/aboutSelectedPath").then((m) => m.AboutSelectedPath)
+const AboutSelectedPath = dynamic(() =>
+  import("@/components/features/about/aboutSelectedPath").then(
+    (m) => m.AboutSelectedPath,
+  ),
 );
 
 export const metadata: Metadata = {
-  title: 'About Me',
-  description: 'Learn about Melwyn Titus, a Full Stack Developer with expertise in enterprise-grade web applications, modern JavaScript frameworks, and product engineering.',
+  title: "About Me",
+  description:
+    "Learn about Melwyn Titus, a Full Stack Developer with expertise in enterprise-grade web applications, modern JavaScript frameworks, and product engineering.",
   alternates: {
-    canonical: '/about',
+    canonical: "/about",
   },
   openGraph: {
-    title: 'About Melwyn Titus | Full Stack Developer',
-    description: 'Turning complex problems into elegant, user-centric products.',
-    url: 'https://www.melwyn.co.in/about',
-    images: ['/og-image.png'],
+    title: "About Melwyn Titus | Full Stack Developer",
+    description:
+      "Turning complex problems into elegant, user-centric products.",
+    url: "https://www.melwyn.co.in/about",
+    images: ["/og-image.png"],
   },
 };
 
@@ -37,10 +41,7 @@ const AboutPage = async () => {
   return (
     <div className="min-h-svh text-[var(--default-text-color)]">
       <AboutHeroSection />
-      <AboutSelectedPath
-        experiences={experiences}
-        education={education}
-      />
+      <AboutSelectedPath experiences={experiences} education={education} />
       <ContactSection
         siteSettings={siteSettings}
         headingHtml={
@@ -51,7 +52,8 @@ const AboutPage = async () => {
             <span
               className="text-[clamp(26px,3.2vw,48px)] font-serif leading-normal block italic"
               style={{
-                background: "linear-gradient(90deg, #FF9A8B 0%, #FF6A88 55%, #FF99AC 100%)",
+                background:
+                  "linear-gradient(90deg, #FF9A8B 0%, #FF6A88 55%, #FF99AC 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
               }}

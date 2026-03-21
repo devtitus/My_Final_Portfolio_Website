@@ -7,13 +7,13 @@ export const metadata: Metadata = {
   title: "Contact | Melwyn Titus",
   description: "Get in touch for collaborations and opportunities.",
   alternates: {
-    canonical: '/contact',
+    canonical: "/contact",
   },
   openGraph: {
-    title: 'Contact Melwyn Titus',
-    description: 'Get in touch for collaborations and opportunities.',
-    url: 'https://www.melwyn.co.in/contact',
-    images: ['/og-image.png'],
+    title: "Contact Melwyn Titus",
+    description: "Get in touch for collaborations and opportunities.",
+    url: "https://www.melwyn.co.in/contact",
+    images: ["/og-image.png"],
   },
 };
 
