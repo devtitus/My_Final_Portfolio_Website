@@ -370,7 +370,7 @@ const FrameHeroSection = () => {
                   >
                     <CopyIcon className="w-5 h-5 text-white/80 group-hover:text-white transition-colors" />
                   </button>
-                  <span className="text-white/80 text-base font-normal tracking-wide w-[196px] group-hover:text-white/90 transition-colors">
+                  <span className="text-white/80 text-[clamp(14px,1.1vw,16px)] font-secondary font-normal tracking-wide group-hover:text-white/90 transition-colors">
                     {isCopied ? "Copied!" : email}
                   </span>
                 </div>

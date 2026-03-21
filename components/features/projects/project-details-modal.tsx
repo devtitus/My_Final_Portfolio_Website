@@ -64,7 +64,7 @@ export function ProjectDetailsModal({
               {project.title}
             </DialogTitle>
             {project.tagline && (
-              <p className="font-secondary text-[14px] text-white/50 text-left mt-1 leading-relaxed">
+              <p className="font-secondary text-xs sm:text-sm text-white/50 text-left mt-1 leading-relaxed">
                 {project.tagline}
               </p>
             )}
@@ -199,9 +199,9 @@ export function ProjectDetailsModal({
                   className={cn(
                     "prose prose-invert max-w-none",
                     "prose-headings:font-secondary prose-headings:text-foreground prose-headings:font-semibold",
-                    "prose-h2:text-[18px] prose-h3:text-[16px]",
-                    "prose-p:font-secondary prose-p:text-white/70 prose-p:text-[15px] prose-p:leading-[1.75]",
-                    "prose-li:font-secondary prose-li:text-white/70 prose-li:text-[15px]",
+                    "prose-h2:text-[15px] sm:prose-h2:text-[18px] prose-h3:text-[13px] sm:prose-h3:text-[16px]",
+                    "prose-p:font-secondary prose-p:text-white/70 prose-p:text-[13px] sm:prose-p:text-[15px] prose-p:leading-[1.75]",
+                    "prose-li:font-secondary prose-li:text-white/70 prose-li:text-[13px] sm:prose-li:text-[15px]",
                     "prose-strong:text-foreground prose-strong:font-semibold",
                     "prose-a:text-brand-blue prose-a:no-underline hover:prose-a:underline",
                     "prose-code:text-blue-300 prose-code:bg-white/[0.08] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-[13px] prose-code:before:content-none prose-code:after:content-none",

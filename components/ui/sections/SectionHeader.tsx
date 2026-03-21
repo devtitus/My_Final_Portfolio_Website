@@ -55,7 +55,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
 
       {/* Subtitle */}
       {subtitle && (
-        <p className="text-[clamp(16px,1.75vw,20px)] text-white/70 max-w-2xl animate-[fadeInUp_0.8s_ease-out_0.1s] opacity-0 [animation-fill-mode:forwards]">
+        <p className="text-[clamp(14px,1.75vw,20px)] text-white/70 max-w-2xl animate-[fadeInUp_0.8s_ease-out_0.1s] opacity-0 [animation-fill-mode:forwards]">
           {subtitle}
         </p>
       )}

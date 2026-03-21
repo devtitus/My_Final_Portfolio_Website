@@ -149,7 +149,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                                 )}
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <div className="flex flex-col gap-2">
-                                        <label className="text-[14px] font-medium text-[var(--skill-text-color)]">
+                                        <label className="text-xs sm:text-sm font-medium font-secondary text-[var(--skill-text-color)]">
                                             Name
                                         </label>
                                         <Input
@@ -161,7 +161,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                                         />
                                     </div>
                                     <div className="flex flex-col gap-2">
-                                        <label className="text-[14px] font-medium text-[var(--skill-text-color)]">
+                                        <label className="text-xs sm:text-sm font-medium font-secondary text-[var(--skill-text-color)]">
                                             Email
                                         </label>
                                         <Input
@@ -176,7 +176,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                                 </div>
 
                                 <div className="flex flex-col gap-2">
-                                    <label className="text-[14px] font-medium text-[var(--skill-text-color)]">
+                                    <label className="text-xs sm:text-sm font-medium font-secondary text-[var(--skill-text-color)]">
                                         Subject
                                     </label>
                                     <Input
@@ -189,7 +189,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                                 </div>
 
                                 <div className="flex flex-col gap-2">
-                                    <label className="text-[14px] font-medium text-[var(--skill-text-color)]">
+                                    <label className="text-xs sm:text-sm font-medium font-secondary text-[var(--skill-text-color)]">
                                         Message
                                     </label>
                                     <Textarea
