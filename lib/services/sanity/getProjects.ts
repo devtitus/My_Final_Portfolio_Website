@@ -29,7 +29,7 @@ export const getProjects = async (): Promise<ProjectItem[]> => {
     const projects: SanityProject[] = await client.fetch(
       query,
       {},
-      { next: { revalidate: 0 } },
+      { next: { revalidate: 3600 } },
     );
 
     const serializedProjects = await Promise.all(

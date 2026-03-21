@@ -25,8 +25,8 @@ const ProjectsHero: React.FC = () => {
         )}
       />
 
-      <h1 className="flex flex-row items-center gap-[clamp(4px,1vw,10px)] text-[clamp(28px,3.25vw,44px)] font-medium text-foreground mb-[clamp(8px,1vw,12px)] font-primary">
-        Projects & <br />
+      <h1 className="text-[clamp(32px,4vw,56px)] font-medium text-foreground mb-[clamp(8px,1vw,12px)] font-primary leading-[1.1]">
+        Projects &amp;{" "}
         <span
           style={{
             background:
