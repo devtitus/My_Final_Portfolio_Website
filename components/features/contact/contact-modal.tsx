@@ -51,14 +51,14 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
         <Dialog open={isOpen} onOpenChange={onClose}>
             <DialogContent
                 className={cn(
-                    "bg-background/95 backdrop-blur-xl border border-[var(--glass-border-color)]",
-                    "text-foreground max-w-[90vw] w-[1000px] h-[85vh] max-h-[85vh]",
+                    "bg-[radial-gradient(ellipse_at_center,rgba(0,87,224,0.12)_0%,rgba(0,87,224,0.04)_30%,rgba(10,10,15,0.98)_100%)]",
+                    "border border-[var(--glass-border-color)]",
+                    "text-foreground max-w-[90vw] w-[1000px]",
+                    "h-[85vh] max-h-[85vh] max-sm:h-[92svh] max-sm:max-h-[92svh]",
                     "overflow-hidden flex flex-col p-0 rounded-2xl",
-                    "shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] border-none gap-0",
+                    "shadow-[0_25px_50px_-12px_rgba(0,0,0,0.6)] border-none gap-0",
                     "sm:max-w-[1000px]",
                     "mt-[48px] lg:mt-[60px]",
-                    // Blue Radial Gradient Background
-                    "bg-[radial-gradient(ellipse_at_center,rgba(0,87,224,0.15)_0%,rgba(0,87,224,0.05)_25%,rgba(10,10,15,0.95)_100%)]"
                 )}
             >
                 <div
