@@ -19,13 +19,19 @@ interface SkillsSectionProps {
  * - Component is memoized to prevent unnecessary re-renders
  * - SkillCards are memoized individually
  */
-const SkillsSection = memo(function SkillsSection({ skills }: SkillsSectionProps) {
+const SkillsSection = memo(function SkillsSection({
+  skills,
+}: SkillsSectionProps) {
   const [showAllSkills, setShowAllSkills] = useState(false);
   const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "0px 0px -80px 0px" });
+  const isInView = useInView(sectionRef, {
+    once: true,
+    margin: "0px 0px -80px 0px",
+  });
 
   const shouldShowToggle = skills.length > 10;
-  const visibleSkills = shouldShowToggle && !showAllSkills ? skills.slice(0, 10) : skills;
+  const visibleSkills =
+    shouldShowToggle && !showAllSkills ? skills.slice(0, 10) : skills;
   const remainingSkillsCount = skills.length - 10;
 
   if (!skills || skills.length === 0) {
@@ -40,18 +46,23 @@ const SkillsSection = memo(function SkillsSection({ skills }: SkillsSectionProps
         "flex flex-col justify-center items-center overflow-hidden relative",
         "scroll-mt-20",
         "max-sm:min-h-auto max-sm:py-[60px]",
-        "max-lg:min-h-auto max-lg:py-[80px]"
-      )}>
-      <div className={cn(
-        "w-full flex flex-col items-center justify-center",
-        "gap-fluid-lg animate-fade-in-up",
-        "motion-reduce:animate-none"
-      )}>
+        "max-lg:min-h-auto max-lg:py-[80px]",
+      )}
+    >
+      <div
+        className={cn(
+          "w-full flex flex-col items-center justify-center",
+          "gap-fluid-lg animate-fade-in-up",
+          "motion-reduce:animate-none",
+        )}
+      >
         {/* Header with spinning accent inline */}
-        <div className={cn(
-          "flex flex-col items-center gap-fluid-sm",
-          "sm:flex-row sm:items-center sm:gap-fluid-md"
-        )}>
+        <div
+          className={cn(
+            "flex flex-col items-center gap-fluid-sm",
+            "sm:flex-row sm:items-center sm:gap-fluid-md",
+          )}
+        >
           {/* Spinning accent — will-change promotes to own GPU layer, eliminating repaint cost */}
           <div
             className={cn(
@@ -73,26 +84,31 @@ const SkillsSection = memo(function SkillsSection({ skills }: SkillsSectionProps
         </div>
 
         {/* Skills Grid — only renders once section enters viewport */}
-        <div className={cn(
-          "w-full max-w-[1400px] grid gap-fluid-sm",
-          "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
-        )}>
-          {isInView && visibleSkills.map((skill) => (
-            <SkillCard
-              key={skill.id}
-              skillName={skill.label}
-              skillIcon={skill.iconUrl}
-            />
-          ))}
+        <div
+          className={cn(
+            "w-full max-w-[1400px] grid gap-fluid-sm",
+            "grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6",
+          )}
+        >
+          {isInView &&
+            visibleSkills.map((skill) => (
+              <SkillCard
+                key={skill.id}
+                skillName={skill.label}
+                skillIcon={skill.iconUrl}
+              />
+            ))}
         </div>
 
         {/* Toggle Button */}
         {shouldShowToggle && (
           <GlassButton
             onClick={() => setShowAllSkills(!showAllSkills)}
-            className="mt-fluid-sm"
+            className="mt-fluid-sm font-secondary text-[clamp(14px,1.6vw,16px)]"
           >
-            {showAllSkills ? "Show Less" : `Show More (${remainingSkillsCount})`}
+            {showAllSkills
+              ? "Show Less"
+              : `Show More (${remainingSkillsCount})`}
           </GlassButton>
         )}
       </div>

@@ -6,7 +6,10 @@ interface SkillCardProps {
   skillIcon: string;
 }
 
-const SkillCard = memo(function SkillCard({ skillName, skillIcon }: SkillCardProps) {
+const SkillCard = memo(function SkillCard({
+  skillName,
+  skillIcon,
+}: SkillCardProps) {
   return (
     <GlassCard
       hover
@@ -28,7 +31,7 @@ const SkillCard = memo(function SkillCard({ skillName, skillIcon }: SkillCardPro
             decoding="async"
           />
         </div>
-        <span className="text-white/80 text-[11px] sm:text-xs font-secondary font-medium text-center transition-colors duration-300 group-hover:text-white">
+        <span className="text-white/80 text-[clamp(12px,1.5vw,14px)] font-secondary font-medium leading-snug text-center transition-colors duration-300 group-hover:text-white">
           {skillName}
         </span>
       </div>
