@@ -36,16 +36,18 @@ const CommandItem = memo(function CommandItem({
     <Command.Item
       value={value}
       onSelect={onSelect}
-      className="group relative flex cursor-pointer select-none items-center rounded-lg px-2 py-1.5 sm:py-2 text-sm outline-none data-[selected=true]:bg-white/10 data-[selected=true]:text-white transition-colors"
+      className="group relative flex cursor-pointer select-none items-center rounded-lg px-2.5 py-2 sm:px-3 sm:py-2.5 outline-none data-[selected=true]:bg-white/10 data-[selected=true]:text-white hover:bg-white/[0.06] transition-colors duration-80"
     >
-      <div className="flex h-7 w-7 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-md border border-white/5 bg-white/5 text-white/50 group-data-[selected=true]:text-white group-data-[selected=true]:border-white/20 group-data-[selected=true]:bg-white/10 transition-colors">
-        <span className="[&>svg]:h-3.5 [&>svg]:w-3.5 sm:[&>svg]:h-5 sm:[&>svg]:w-5">{icon}</span>
+      <div className="flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-md border border-white/5 bg-white/5 text-white/50 group-data-[selected=true]:text-white group-data-[selected=true]:border-white/20 group-data-[selected=true]:bg-white/10 transition-[background-color,border-color,color] duration-200 ease-out">
+        <span className="[&>svg]:h-4 [&>svg]:w-4 sm:[&>svg]:h-4.5 sm:[&>svg]:w-4.5">
+          {icon}
+        </span>
       </div>
-      <div className="ml-2 sm:ml-3 flex flex-col justify-center">
-        <span className="text-xs sm:text-sm font-medium text-white/80 group-data-[selected=true]:text-white font-secondary">
+      <div className="ml-2.5 sm:ml-3.5 flex flex-col justify-center gap-0.5">
+        <span className="text-[clamp(12px,1.1vw,14px)] font-medium text-white/80 group-data-[selected=true]:text-white font-secondary leading-snug">
           {label}
         </span>
-        <span className="text-[10px] sm:text-xs text-white/40 group-data-[selected=true]:text-white/60 font-secondary">
+        <span className="text-[clamp(10px,0.95vw,12px)] text-white/40 group-data-[selected=true]:text-white/60 font-secondary leading-snug">
           {description}
         </span>
       </div>
@@ -111,13 +113,21 @@ const CommandMenu = memo(function CommandMenu({
     if (!isOpen) return;
 
     const handleClickOutside = (e: MouseEvent) => {
-      if (contentRef.current && !contentRef.current.contains(e.target as Element)) {
+      if (
+        contentRef.current &&
+        !contentRef.current.contains(e.target as Element)
+      ) {
         handleClose();
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside, { capture: true });
-    return () => document.removeEventListener("mousedown", handleClickOutside, { capture: true });
+    document.addEventListener("mousedown", handleClickOutside, {
+      capture: true,
+    });
+    return () =>
+      document.removeEventListener("mousedown", handleClickOutside, {
+        capture: true,
+      });
   }, [isOpen, handleClose]);
 
   // Keyboard shortcuts — always active
@@ -151,7 +161,10 @@ const CommandMenu = memo(function CommandMenu({
           navigator.clipboard.writeText("m.works.gd@gmail.com");
           break;
         case "linkedin":
-          window.open("https://www.linkedin.com/in/melwyn-john-8125bb214", "_blank");
+          window.open(
+            "https://www.linkedin.com/in/melwyn-john-8125bb214",
+            "_blank",
+          );
           break;
         case "github":
           window.open("https://github.com/devtitus", "_blank");
@@ -159,16 +172,37 @@ const CommandMenu = memo(function CommandMenu({
       }
       handleClose();
     },
-    [onNavigate, handleClose]
+    [onNavigate, handleClose],
   );
 
-  const handleSelectHome = useCallback(() => handleSelect("home"), [handleSelect]);
-  const handleSelectAbout = useCallback(() => handleSelect("about"), [handleSelect]);
-  const handleSelectProjects = useCallback(() => handleSelect("projects"), [handleSelect]);
-  const handleSelectCopyEmail = useCallback(() => handleSelect("copy-email"), [handleSelect]);
-  const handleSelectContact = useCallback(() => handleSelect("contact"), [handleSelect]);
-  const handleSelectLinkedIn = useCallback(() => handleSelect("linkedin"), [handleSelect]);
-  const handleSelectGithub = useCallback(() => handleSelect("github"), [handleSelect]);
+  const handleSelectHome = useCallback(
+    () => handleSelect("home"),
+    [handleSelect],
+  );
+  const handleSelectAbout = useCallback(
+    () => handleSelect("about"),
+    [handleSelect],
+  );
+  const handleSelectProjects = useCallback(
+    () => handleSelect("projects"),
+    [handleSelect],
+  );
+  const handleSelectCopyEmail = useCallback(
+    () => handleSelect("copy-email"),
+    [handleSelect],
+  );
+  const handleSelectContact = useCallback(
+    () => handleSelect("contact"),
+    [handleSelect],
+  );
+  const handleSelectLinkedIn = useCallback(
+    () => handleSelect("linkedin"),
+    [handleSelect],
+  );
+  const handleSelectGithub = useCallback(
+    () => handleSelect("github"),
+    [handleSelect],
+  );
 
   const handleSearchChange = useCallback((value: string) => {
     setSearch(value);
@@ -183,14 +217,11 @@ const CommandMenu = memo(function CommandMenu({
         "transition-opacity duration-150",
         isOpen
           ? "opacity-100 pointer-events-auto"
-          : "opacity-0 pointer-events-none"
+          : "opacity-0 pointer-events-none",
       )}
     >
       {/* Backdrop */}
-      <div
-        className="fixed inset-0 bg-black/65"
-        onClick={handleClose}
-      />
+      <div className="fixed inset-0 bg-black/65" onClick={handleClose} />
 
       {/* Content wrapper */}
       <div
@@ -198,7 +229,7 @@ const CommandMenu = memo(function CommandMenu({
         className={cn(
           "relative z-50 w-full max-w-2xl",
           "transition-transform duration-150 ease-out",
-          isOpen ? "translate-y-0" : "translate-y-2"
+          isOpen ? "translate-y-0" : "translate-y-2",
         )}
       >
         {/* Glow */}
@@ -224,10 +255,10 @@ const CommandMenu = memo(function CommandMenu({
                 value={search}
                 onValueChange={handleSearchChange}
                 placeholder="Type a command or search..."
-                className="flex h-11 sm:h-14 w-full rounded-md bg-transparent py-3 text-xs sm:text-sm outline-none placeholder:text-white/50 text-white font-secondary"
+                className="flex h-11 sm:h-14 w-full rounded-md bg-transparent py-3 text-[clamp(12px,1.1vw,14px)] outline-none placeholder:text-white/50 text-white font-secondary"
               />
               <button
-                className="ml-2 hidden sm:inline-flex h-6 select-none items-center gap-1 rounded border border-white/20 bg-white/5 px-2 text-[10px] font-medium text-white/70 hover:bg-white/10 transition-colors"
+                className="ml-2 hidden sm:inline-flex h-6 select-none items-center gap-1 rounded border border-white/20 bg-white/5 px-2 text-[11px] font-medium text-white/70 hover:bg-white/10 transition-colors duration-200"
                 onClick={handleClose}
                 type="button"
               >
@@ -236,34 +267,81 @@ const CommandMenu = memo(function CommandMenu({
             </div>
 
             {/* List */}
-            <Command.List data-lenis-prevent className="max-h-[52vh] sm:max-h-[60vh] overflow-y-auto overflow-x-hidden p-1.5 sm:p-2">
-              <Command.Empty className="py-4 sm:py-6 text-center text-xs sm:text-sm text-white/50 font-secondary">
+            <Command.List
+              data-lenis-prevent
+              className="max-h-[52vh] sm:max-h-[60vh] overflow-y-auto overflow-x-hidden p-2 sm:p-3 space-y-2"
+            >
+              <Command.Empty className="py-5 sm:py-6 text-center text-[clamp(12px,1.1vw,14px)] text-white/50 font-secondary">
                 No results found.
               </Command.Empty>
 
               <Command.Group
                 heading="Pages"
-                className="text-white/50 px-2 py-1.5 text-xs font-medium font-secondary uppercase tracking-wider [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground"
+                className="text-white/50 px-2 py-1 text-[11px] font-medium font-secondary tracking-wider [&_[cmdk-group-heading]]:px-1 [&_[cmdk-group-heading]]:pb-1 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground space-y-1"
               >
-                <CommandItem value="home" onSelect={handleSelectHome} icon={<HomeIcon className="h-5 w-5" />} label="Home" description="Go to the home page" />
-                <CommandItem value="about" onSelect={handleSelectAbout} icon={<AboutIcon className="h-5 w-5" />} label="About" description="Learn more about me" />
-                <CommandItem value="projects" onSelect={handleSelectProjects} icon={<ProjectsIcon className="h-5 w-5" />} label="Projects" description="View my projects" />
+                <CommandItem
+                  value="home"
+                  onSelect={handleSelectHome}
+                  icon={<HomeIcon className="h-5 w-5" />}
+                  label="Home"
+                  description="Go to the home page"
+                />
+                <CommandItem
+                  value="about"
+                  onSelect={handleSelectAbout}
+                  icon={<AboutIcon className="h-5 w-5" />}
+                  label="About"
+                  description="Learn more about me"
+                />
+                <CommandItem
+                  value="projects"
+                  onSelect={handleSelectProjects}
+                  icon={<ProjectsIcon className="h-5 w-5" />}
+                  label="Projects"
+                  description="View my projects"
+                />
               </Command.Group>
 
               <Command.Group
                 heading="Actions"
-                className="text-white/50 px-2 py-1.5 text-xs font-medium font-secondary uppercase tracking-wider"
+                className="text-white/50 px-2 py-1 text-[11px] font-medium font-secondary tracking-wider space-y-1"
               >
-                <CommandItem value="copy-email" onSelect={handleSelectCopyEmail} icon={<CopyIcon className="h-5 w-5" />} label="Copy Email" description="Copy my email to clipboard" />
-                <CommandItem value="contact" onSelect={handleSelectContact} icon={<ContactIcon className="h-5 w-5" />} label="Contact" description="Get in touch with me" />
+                <CommandItem
+                  value="copy-email"
+                  onSelect={handleSelectCopyEmail}
+                  icon={<CopyIcon className="h-5 w-5" />}
+                  label="Copy Email"
+                  description="Copy my email to clipboard"
+                />
+                <CommandItem
+                  value="contact"
+                  onSelect={handleSelectContact}
+                  icon={<ContactIcon className="h-5 w-5" />}
+                  label="Contact"
+                  description="Get in touch with me"
+                />
               </Command.Group>
 
               <Command.Group
                 heading="Socials"
-                className="text-white/50 px-2 py-1.5 text-xs font-medium font-secondary uppercase tracking-wider"
+                className="text-white/50 px-2 py-1 text-[11px] font-medium font-secondary tracking-wider space-y-1"
               >
-                <CommandItem value="linkedin" onSelect={handleSelectLinkedIn} icon={<LinkedInIcon className="h-5 w-5" />} label="LinkedIn" description="Connect with me on LinkedIn" shortcut={<LinkIcon className="h-3 w-3" />} />
-                <CommandItem value="github" onSelect={handleSelectGithub} icon={<GithubIcon className="h-5 w-5" />} label="Github" description="Connect with me on Github" shortcut={<LinkIcon className="h-3 w-3" />} />
+                <CommandItem
+                  value="linkedin"
+                  onSelect={handleSelectLinkedIn}
+                  icon={<LinkedInIcon className="h-5 w-5" />}
+                  label="LinkedIn"
+                  description="Connect with me on LinkedIn"
+                  shortcut={<LinkIcon className="h-3 w-3" />}
+                />
+                <CommandItem
+                  value="github"
+                  onSelect={handleSelectGithub}
+                  icon={<GithubIcon className="h-5 w-5" />}
+                  label="Github"
+                  description="Connect with me on Github"
+                  shortcut={<LinkIcon className="h-3 w-3" />}
+                />
               </Command.Group>
             </Command.List>
 
@@ -272,25 +350,40 @@ const CommandMenu = memo(function CommandMenu({
               <div className="flex items-center gap-4">
                 <LinkedInIcon
                   className="h-4 w-4 text-white/60 hover:text-white transition-colors cursor-pointer"
-                  onClick={() => window.open("https://www.linkedin.com/in/melwyn-john-8125bb214", "_blank")}
+                  onClick={() =>
+                    window.open(
+                      "https://www.linkedin.com/in/melwyn-john-8125bb214",
+                      "_blank",
+                    )
+                  }
                 />
                 <GithubIcon
                   className="h-4 w-4 text-white/60 hover:text-white transition-colors cursor-pointer"
-                  onClick={() => window.open("https://github.com/devtitus", "_blank")}
+                  onClick={() =>
+                    window.open("https://github.com/devtitus", "_blank")
+                  }
                 />
               </div>
-              <div className="flex items-center gap-4 text-xs text-white/60 font-secondary">
+              <div className="flex items-center gap-4 text-[12px] text-white/60 font-secondary">
                 <div className="flex items-center gap-1.5">
-                  <span className="flex items-center justify-center w-5 h-5 rounded border border-white/20 bg-white/5 text-[10px] font-medium">↑</span>
-                  <span className="flex items-center justify-center w-5 h-5 rounded border border-white/20 bg-white/5 text-[10px] font-medium">↓</span>
+                  <span className="flex items-center justify-center w-5 h-5 rounded border border-white/20 bg-white/5 text-[10px] font-medium">
+                    ↑
+                  </span>
+                  <span className="flex items-center justify-center w-5 h-5 rounded border border-white/20 bg-white/5 text-[10px] font-medium">
+                    ↓
+                  </span>
                   <span>navigate</span>
                 </div>
                 <div className="flex items-center gap-1.5">
-                  <span className="flex items-center justify-center w-5 h-5 rounded border border-white/20 bg-white/5 text-[10px] font-medium">↵</span>
+                  <span className="flex items-center justify-center w-5 h-5 rounded border border-white/20 bg-white/5 text-[10px] font-medium">
+                    ↵
+                  </span>
                   <span>select</span>
                 </div>
                 <div className="flex items-center gap-1.5">
-                  <span className="flex items-center justify-center px-1.5 h-5 rounded border border-white/20 bg-white/5 text-[10px] font-medium">esc</span>
+                  <span className="flex items-center justify-center px-1.5 h-5 rounded border border-white/20 bg-white/5 text-[10px] font-medium">
+                    esc
+                  </span>
                   <span>close</span>
                 </div>
               </div>
