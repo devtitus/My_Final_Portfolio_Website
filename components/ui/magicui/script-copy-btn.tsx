@@ -32,22 +32,23 @@ export function ScriptCopyBtn({
 
   return (
     <div className={cn("flex items-center justify-center", className)}>
-      <div className={cn(
-        "w-full",
-        "max-lg:flex max-lg:flex-col max-lg:items-start max-lg:gap-5"
-      )}>
+      <div
+        className={cn(
+          "w-full",
+          "max-lg:flex max-lg:flex-col max-lg:items-start max-lg:gap-5",
+        )}
+      >
         <div className="flex items-center justify-between">
-          {showMultiplePackageOptions && (
+          {showMultiplePackageOptions && packageManagers.length > 1 && (
             <div className="relative">
-              <div className={cn(
-                "inline-flex overflow-hidden rounded",
-                "border border-white/[0.12] text-xs"
-              )}>
+              <div
+                className={cn(
+                  "inline-flex overflow-hidden rounded",
+                  "border border-white/[0.12] text-xs",
+                )}
+              >
                 {packageManagers.map((pm, index) => (
-                  <div
-                    key={pm}
-                    className="flex items-center "
-                  >
+                  <div key={pm} className="flex items-center ">
                     {index > 0 && (
                       <div className="h-4 w-px bg-border" aria-hidden="true" />
                     )}
@@ -62,7 +63,7 @@ export function ScriptCopyBtn({
                         "px-[clamp(8px,1.5vw,12px)] py-[clamp(6px,0.5vw,8px)]",
                         packageManager === pm
                           ? "text-primary"
-                          : "text-muted-foreground"
+                          : "text-muted-foreground",
                       )}
                       onClick={() => setPackageManager(pm)}
                     >
@@ -86,22 +87,26 @@ export function ScriptCopyBtn({
             </div>
           )}
         </div>
-        <div className={cn(
-          "relative flex items-center",
-          "lg:mt-[clamp(22px,1vw,26px)]"
-        )}>
+        <div
+          className={cn(
+            "relative flex items-center",
+            "lg:mt-[clamp(22px,1vw,26px)]",
+          )}
+        >
           <div className="flex-nowrap grow">
-            <pre className={cn(
-              "rounded-sm border border-white/[0.12] bg-transparent dark:bg-black",
-              "font-primary font-normal tracking-[0.1em] text-white/70",
-              "overflow-hidden",
-              "shadow-[inset_0_-20px_80px_-20px_rgba(255,255,255,0.12)]",
-              // Responsive padding and font size
-              "p-[clamp(8px,1vw,12px)] px-[clamp(12px,1.5vw,16px)]",
-              "text-[clamp(13px,1.25vw,14px)]",
-              // Selection styling
-              "selection:bg-brand-blue selection:text-white"
-            )}>
+            <pre
+              className={cn(
+                "rounded-sm border border-white/[0.12] bg-transparent dark:bg-black",
+                "font-primary font-normal tracking-[0.1em] text-white/70",
+                "overflow-hidden",
+                "shadow-[inset_0_-20px_80px_-20px_rgba(255,255,255,0.12)]",
+                // Responsive padding and font size
+                "p-[clamp(8px,1vw,12px)] px-[clamp(12px,1.5vw,16px)]",
+                "text-[clamp(13px,1.25vw,14px)]",
+                // Selection styling
+                "selection:bg-brand-blue selection:text-white",
+              )}
+            >
               {command}
             </pre>
           </div>
@@ -112,7 +117,7 @@ export function ScriptCopyBtn({
               "relative ml-2 rounded-sm",
               "border-[0.5px] border-white/[0.12]",
               // Responsive padding
-              "p-[clamp(19px,2vw,23px)]"
+              "p-[clamp(19px,2vw,23px)]",
             )}
             onClick={copyToClipboard}
             aria-label={copied ? "Copied" : "Copy to clipboard"}
@@ -121,13 +126,13 @@ export function ScriptCopyBtn({
             <Copy
               className={cn(
                 "w-5 h-5 aspect-square transition-all duration-300",
-                copied ? "scale-0" : "scale-100"
+                copied ? "scale-0" : "scale-100",
               )}
             />
             <Check
               className={cn(
                 "absolute inset-0 m-auto w-5 h-5 aspect-square transition-all duration-300",
-                copied ? "scale-100" : "scale-0"
+                copied ? "scale-100" : "scale-0",
               )}
             />
           </Button>
