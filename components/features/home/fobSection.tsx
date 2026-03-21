@@ -439,89 +439,84 @@ const FobSection = () => {
       )}>
         <SectionHeader
           title="What I bring to the table"
-          subtitle="A showcase of my recent work"
+          subtitle="Skills, availability & ways to connect"
           align="center"
         />
 
         {/* Bento Grid */}
         <div className={cn(
-          "grid gap-6",
+          "grid gap-fluid-md",
           "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3",
-          "lg:grid-rows-2 lg:h-[clamp(360px,40vh,500px)]",
-          "xl:h-[clamp(450px,45vh,550px)]"
+          "lg:grid-rows-2 lg:min-h-[clamp(480px,55vh,680px)]"
         )}>
           {/* Column 1 - Globe Card */}
           <div className={cn(
-            "lg:row-span-2 rounded-2xl p-4",
+            "lg:row-span-2 rounded-2xl p-5",
             "bg-white/[0.03] border border-white/[0.12] backdrop-blur-2xl backdrop-saturate-150",
             "shadow-[0_8px_32px_rgba(0,0,0,0.3)] hover:shadow-[0_12px_48px_rgba(0,87,224,0.2)]",
             "hover:bg-white/[0.06] hover:border-brand-blue/40",
             "transition-all duration-300 hover:-translate-y-1",
-            "flex flex-col gap-6 overflow-hidden relative",
-            "max-sm:min-h-[400px] sm:max-lg:col-span-2",
+            "flex flex-col gap-4 overflow-hidden relative",
+            "min-h-[380px] sm:max-lg:col-span-2",
             "group"
           )}>
-            <div className="flex-1 relative">
-              {isInView && shouldLoadGlobe && <World data={sampleArcs} globeConfig={globeConfig} />}
-            </div>
-            <div className={cn(
-              "flex flex-col gap-1",
-              "lg:absolute lg:bottom-6 lg:left-6 lg:right-6",
-              "lg:opacity-0 lg:translate-y-4 lg:group-hover:opacity-100 lg:group-hover:translate-y-0",
-              "transition-all duration-300",
-              "max-lg:static max-lg:opacity-100 max-lg:translate-y-0"
-            )}>
-              <h3 className="text-white/95 font-primary text-[clamp(18px,1.25vw,20px)] font-semibold leading-tight inline-flex items-center gap-2">
-                <MapPinIcon className="w-6 h-6 text-brand-blue drop-shadow-[0_0_8px_rgba(0,87,224,0.4)]" />
+            {/* Always-visible card label at top */}
+            <div className="flex flex-col gap-1 shrink-0">
+              <h3 className="text-white/90 font-primary text-[clamp(16px,1.15vw,18px)] font-semibold leading-tight inline-flex items-center gap-2">
+                <MapPinIcon className="w-5 h-5 text-brand-blue drop-shadow-[0_0_8px_rgba(0,87,224,0.4)]" />
                 Available Worldwide
               </h3>
-              <p className="text-white/75 font-secondary text-[clamp(16px,1vw,18px)] font-normal leading-tight">
-                Remote-first developer ready to collaborate across time zones. Building digital solutions from anywhere in the world.
+              <p className="text-white/55 font-secondary text-[clamp(13px,0.9vw,15px)] font-normal leading-snug group-hover:text-white/70 transition-colors duration-300">
+                Remote-first developer ready to collaborate across time zones.
               </p>
+            </div>
+            <div className="flex-1 relative min-h-0">
+              {isInView && shouldLoadGlobe && <World data={sampleArcs} globeConfig={globeConfig} />}
             </div>
           </div>
 
           {/* Column 2 Wrapper */}
           <div className={cn(
             "lg:row-span-2 flex flex-col gap-fluid-md",
-            "max-sm:contents sm:max-lg:col-span-2 sm:max-lg:grid sm:max-lg:grid-cols-2"
+            "max-sm:contents sm:max-lg:col-span-2 sm:max-lg:grid sm:max-lg:grid-cols-2 sm:max-lg:gap-fluid-md"
           )}>
-            {/* Bento 2 - Email */}
+            {/* Bento 2 - Email / Contact */}
             <div className={cn(
-              "lg:h-[40%] rounded-2xl p-4",
+              "lg:flex-1 rounded-2xl p-5",
               "bg-white/[0.03] border border-white/[0.12] backdrop-blur-2xl backdrop-saturate-150",
               "shadow-[0_8px_32px_rgba(0,0,0,0.3)] hover:shadow-[0_12px_48px_rgba(0,87,224,0.2)]",
               "hover:bg-white/[0.06] hover:border-brand-blue/40",
               "transition-all duration-300 hover:-translate-y-1",
-              "flex flex-col gap-3",
-              "sm:max-lg:h-full"
+              "flex flex-col gap-4 group",
+              "sm:max-lg:min-h-[200px]"
             )}>
+              {/* Always-visible label */}
+              <div className="flex flex-col gap-1 shrink-0">
+                <h3 className="text-white/90 font-primary text-[clamp(16px,1.15vw,18px)] font-semibold leading-tight inline-flex items-center gap-2">
+                  <MailIcon className="w-5 h-5 text-brand-blue drop-shadow-[0_0_8px_rgba(0,87,224,0.4)]" />
+                  Get in Touch
+                </h3>
+                <p className="text-white/55 font-secondary text-[clamp(13px,0.9vw,15px)] font-normal leading-snug group-hover:text-white/70 transition-colors duration-300">
+                  I&apos;ll get back to you within 24 hours.
+                </p>
+              </div>
               <ScriptCopyBtn
                 showMultiplePackageOptions={true}
                 codeLanguage="shell"
                 commandMap={customCommandMap}
                 className="mt-0"
               />
-              <div className="flex flex-col gap-2 max-lg:mt-4 lg:hidden">
-                <h3 className="text-white/95 font-primary text-[clamp(18px,1.25vw,20px)] font-semibold leading-tight inline-flex items-center gap-2">
-                  <MailIcon className="w-7 h-7 text-brand-blue drop-shadow-[0_0_8px_rgba(0,87,224,0.4)]" />
-                  Get in Touch
-                </h3>
-                <p className="text-white/75 font-secondary text-[clamp(16px,1vw,18px)] font-normal leading-relaxed">
-                  Drop me an email and I'll get back to you within 24 hours. Let's discuss your next project.
-                </p>
-              </div>
             </div>
 
             {/* Bento 3 - Text Reveal */}
             <div className={cn(
-              "lg:h-[60%] rounded-2xl p-4",
+              "lg:flex-[1.4] rounded-2xl p-5",
               "bg-white/[0.03] border border-white/[0.12] backdrop-blur-2xl backdrop-saturate-150",
               "shadow-[0_8px_32px_rgba(0,0,0,0.3)] hover:shadow-[0_12px_48px_rgba(0,87,224,0.2)]",
               "hover:bg-white/[0.06] hover:border-brand-blue/40",
               "transition-all duration-300 hover:-translate-y-1",
               "flex items-start",
-              "sm:max-lg:h-full"
+              "sm:max-lg:min-h-[200px]"
             )}>
               <TextRevealCard
                 text="Ideas into Reality"
@@ -536,51 +531,46 @@ const FobSection = () => {
 
           {/* Column 3 - Technologies */}
           <div className={cn(
-            "lg:row-span-2 rounded-2xl p-4",
+            "lg:row-span-2 rounded-2xl p-5",
             "bg-white/[0.03] border border-white/[0.12] backdrop-blur-2xl backdrop-saturate-150",
             "shadow-[0_8px_32px_rgba(0,0,0,0.3)] hover:shadow-[0_12px_48px_rgba(0,87,224,0.2)]",
             "hover:bg-white/[0.06] hover:border-brand-blue/40",
             "transition-all duration-300 hover:-translate-y-1",
-            "flex flex-col gap-6 overflow-hidden relative",
-            "max-sm:min-h-[350px] sm:max-lg:col-span-2",
+            "flex flex-col gap-4 overflow-hidden relative",
+            "min-h-[320px] sm:max-lg:col-span-2",
             "group"
           )}>
-            <div className="flex flex-col gap-fluid-sm flex-1">
-              <InfiniteMovingCards
-                items={testimonials}
-                direction="right"
-                speed="slow"
-              />
-              <InfiniteMovingCards
-                items={testimonials}
-                direction="left"
-                speed="slow"
-              />
-              <InfiniteMovingCards
-                items={testimonials}
-                direction="right"
-                speed="slow"
-              />
-              <InfiniteMovingCards
-                items={testimonials}
-                direction="left"
-                speed="slow"
-              />
-            </div>
-            <div className={cn(
-              "flex flex-col gap-2 z-10",
-              "lg:absolute lg:bottom-6 lg:left-6 lg:right-6",
-              "lg:opacity-0 lg:translate-y-4 lg:group-hover:opacity-100 lg:group-hover:translate-y-0",
-              "transition-all duration-300",
-              "max-lg:static max-lg:opacity-100 max-lg:translate-y-0"
-            )}>
-              <h3 className="text-white/95 font-primary text-[clamp(18px,1.25vw,20px)] font-semibold leading-tight inline-flex items-center gap-2">
-                <TechnologiesIcon className="w-6 h-6 text-brand-blue drop-shadow-[0_0_8px_rgba(0,87,224,0.4)]" />
+            {/* Always-visible label at top */}
+            <div className="flex flex-col gap-1 shrink-0">
+              <h3 className="text-white/90 font-primary text-[clamp(16px,1.15vw,18px)] font-semibold leading-tight inline-flex items-center gap-2">
+                <TechnologiesIcon className="w-5 h-5 text-brand-blue drop-shadow-[0_0_8px_rgba(0,87,224,0.4)]" />
                 Tech Stack
               </h3>
-              <p className="text-white/75 font-secondary text-[clamp(16px,1vw,18px)] font-normal leading-tight">
-                Modern tools and frameworks I use to build fast, scalable, and beautiful web applications.
+              <p className="text-white/55 font-secondary text-[clamp(13px,0.9vw,15px)] font-normal leading-snug group-hover:text-white/70 transition-colors duration-300">
+                Tools I use to build fast, scalable web applications.
               </p>
+            </div>
+            <div className="flex flex-col gap-fluid-sm flex-1 min-h-0">
+              <InfiniteMovingCards
+                items={testimonials}
+                direction="right"
+                speed="slow"
+              />
+              <InfiniteMovingCards
+                items={testimonials}
+                direction="left"
+                speed="slow"
+              />
+              <InfiniteMovingCards
+                items={testimonials}
+                direction="right"
+                speed="slow"
+              />
+              <InfiniteMovingCards
+                items={testimonials}
+                direction="left"
+                speed="slow"
+              />
             </div>
           </div>
         </div>

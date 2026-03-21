@@ -12,7 +12,7 @@ interface SkillsSectionProps {
 
 /**
  * SkillsSection - Client Component (receives data as props from server)
- * 
+ *
  * Performance improvements:
  * - Data is fetched server-side and passed as props (no useEffect)
  * - Component is memoized to prevent unnecessary re-renders
@@ -21,7 +21,6 @@ interface SkillsSectionProps {
 const SkillsSection = memo(function SkillsSection({ skills }: SkillsSectionProps) {
   const [showAllSkills, setShowAllSkills] = useState(false);
 
-  // Check if we have more than 10 skills
   const shouldShowToggle = skills.length > 10;
   const visibleSkills = shouldShowToggle && !showAllSkills ? skills.slice(0, 10) : skills;
   const remainingSkillsCount = skills.length - 10;
@@ -34,7 +33,7 @@ const SkillsSection = memo(function SkillsSection({ skills }: SkillsSectionProps
     <section className={cn(
       "min-h-svh px-[clamp(16px,4vw,60px)] py-[clamp(60px,10vh,100px)]",
       "flex flex-col justify-center items-center overflow-hidden relative",
-      "scroll-mt-20", // Navbar clearance
+      "scroll-mt-20",
       "max-sm:min-h-auto max-sm:py-[60px]",
       "max-lg:min-h-auto max-lg:py-[80px]"
     )}>
@@ -43,31 +42,31 @@ const SkillsSection = memo(function SkillsSection({ skills }: SkillsSectionProps
         "gap-fluid-lg animate-fade-in-up",
         "motion-reduce:animate-none"
       )}>
-        {/* Top Section with spinning image and header */}
-        <div className="flex flex-col items-center gap-fluid-md">
+        {/* Header with spinning accent inline */}
+        <div className={cn(
+          "flex flex-col items-center gap-fluid-sm",
+          "sm:flex-row sm:items-center sm:gap-fluid-md"
+        )}>
+          {/* Spinning accent — compact, decorative */}
           <div className={cn(
-            "animate-spin-slow motion-reduce:animate-none",
-            "w-[clamp(180px,25vw,340px)] h-[clamp(180px,25vw,340px)]",
-            "max-sm:w-[clamp(180px,50vw,250px)] max-sm:h-[clamp(180px,50vw,250px)]",
-            "sm:max-lg:w-[clamp(220px,30vw,280px)] sm:max-lg:h-[clamp(220px,30vw,280px)]",
-            "lg:w-[clamp(280px,25vw,340px)] lg:h-[clamp(280px,25vw,340px)]"
+            "animate-spin-slow motion-reduce:animate-none shrink-0",
+            "w-[clamp(72px,8vw,112px)] h-[clamp(72px,8vw,112px)]",
           )}>
-            <SkillSpinningImage className={cn(
-              "aspect-square w-full h-full",
-            )} />
+            <SkillSpinningImage className="aspect-square w-full h-full" />
           </div>
+
           <SectionHeader
             title="My Skills"
             subtitle="Technologies and tools I work with"
             align="center"
+            className="mb-0 sm:text-left sm:items-start"
           />
         </div>
 
-        {/* Skills Grid */}
+        {/* Skills Grid — predictable columns, no orphaned rows */}
         <div className={cn(
-          "w-full max-w-[1400px] grid gap-fluid-md",
-          "grid-cols-2 xs:grid-cols-2 sm:grid-cols-4 lg:grid-cols-[repeat(auto-fit,minmax(140px,1fr))]",
-          "max-sm:gap-fluid-sm"
+          "w-full max-w-[1400px] grid gap-fluid-sm",
+          "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
         )}>
           {visibleSkills.map((skill) => (
             <SkillCard

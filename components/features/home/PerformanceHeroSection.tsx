@@ -11,16 +11,12 @@ const PerformanceHeroSection = () => {
     const [isCopied, setIsCopied] = useState(false);
     const email = "m.works.gd@gmail.com";
 
-    // Email Copy Handle Function
     const handleCopyEmail = useCallback(async () => {
         try {
             await navigator.clipboard.writeText(email);
             setIsCopied(true);
-            setTimeout(() => {
-                setIsCopied(false);
-            }, 2000);
+            setTimeout(() => setIsCopied(false), 2000);
         } catch {
-            // Fallback for older browsers
             const textArea = document.createElement("textarea");
             textArea.value = email;
             document.body.appendChild(textArea);
@@ -28,9 +24,7 @@ const PerformanceHeroSection = () => {
             document.execCommand("copy");
             document.body.removeChild(textArea);
             setIsCopied(true);
-            setTimeout(() => {
-                setIsCopied(false);
-            }, 2000);
+            setTimeout(() => setIsCopied(false), 2000);
         }
     }, [email]);
 
@@ -43,9 +37,6 @@ const PerformanceHeroSection = () => {
                     speed={0.5}
                     starDensity={0.0002}
                 />
-                {/* Gradient Overlay for depth */}
-                {/* <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/40 to-brand-blue/10 pointer-events-none" />
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.4)_100%)] pointer-events-none" /> */}
             </div>
 
             {/* Content Layer */}
@@ -53,10 +44,31 @@ const PerformanceHeroSection = () => {
                 <div className="pointer-events-auto w-full h-full flex flex-col justify-center items-center relative z-[11]">
                     <div
                         className={cn(
-                            "flex flex-col items-start gap-4 z-10 relative pl-4 md:pl-[clamp(24px,4vw,60px)] 2xl:pl-0 w-full max-w-[1920px] mx-auto",
-                            "max-sm:items-center max-sm:pl-0 max-sm:px-4 max-sm:gap-8 max-w-[1400px]",
+                            "flex flex-col items-start gap-5 z-10 relative",
+                            "pl-4 md:pl-[clamp(24px,4vw,60px)] 2xl:pl-0",
+                            "w-full max-w-[1400px] mx-auto",
+                            "max-sm:items-center max-sm:pl-0 max-sm:px-5",
                         )}
                     >
+                        {/* Availability Badge */}
+                        <div
+                            className={cn(
+                                "inline-flex items-center gap-2 px-3 py-1.5 rounded-full",
+                                "bg-white/[0.04] border border-white/[0.10]",
+                                "backdrop-blur-sm",
+                                "animate-fade-in-up motion-reduce:animate-none",
+                            )}
+                            style={{ animationDelay: "0s" }}
+                        >
+                            <span className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                            </span>
+                            <span className="text-white/70 font-secondary text-[clamp(12px,1vw,13px)] font-medium tracking-wide">
+                                Open to opportunities
+                            </span>
+                        </div>
+
                         {/* Hero Heading */}
                         <h1
                             className={cn(
@@ -64,12 +76,12 @@ const PerformanceHeroSection = () => {
                                 "text-[clamp(20px,3.25vw,44px)] font-semibold leading-[1.4] tracking-tight",
                                 "drop-shadow-[0_2px_10px_rgba(0,0,0,0.3)]",
                                 "animate-fade-in-up motion-reduce:animate-none",
-                                "max-lg:text-[clamp(20px,3.25vw,44px)]",
                                 "max-sm:text-[clamp(28px,6vw,32px)] max-sm:text-center",
                             )}
+                            style={{ animationDelay: "0.1s" }}
                         >
                             <span className="inline-block">
-                                Transforming complex challenges{" "}
+                                Transforming complex challenges
                             </span>
                             <span className="inline-block">
                                 into elegant{" "}
@@ -79,7 +91,6 @@ const PerformanceHeroSection = () => {
                                     className={cn(
                                         "font-primary font-bold capitalize",
                                         "text-[clamp(20px,3.25vw,44px)]",
-                                        "max-lg:text-[clamp(20px,3.25vw,44px)]",
                                         "max-sm:text-[clamp(30px,6vw,32px)]",
                                     )}
                                 >
@@ -88,50 +99,57 @@ const PerformanceHeroSection = () => {
                             </span>
                         </h1>
 
-                        {/* Hero Description */}
-                        <div className="flex flex-row items-center gap-3 max-sm:flex max-sm:flex-col">
-                            <span
-                                className={cn(
-                                    "text-left font-secondary text-[clamp(16px,1.5vw,20px)] font-normal",
-                                    "text-white/85 tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)]",
-                                    "animate-fade-in-up motion-reduce:animate-none",
-                                )}
-                                style={{ animationDelay: "0.2s" }}
-                            >
-                                Hello, I&apos;m Melwyn Titus
-                            </span>
-                            <div className="w-[80px] h-[40px] rounded-[40px] flex items-center justify-center border border-white/20 relative overflow-hidden group cursor-pointer backdrop-blur-sm bg-white/5 hover:bg-white/10 transition-all duration-300">
-                                <div className="absolute top-0 w-full h-full bg-gradient-to-b from-white/20 to-transparent transform translate-y-0 duration-500 ease-in-out group-hover:-translate-y-full z-[4]"></div>
-                                <Image
-                                    src="/home/hi.png"
-                                    alt="Welcome Icon"
-                                    width={32}
-                                    height={32}
-                                    sizes="32px"
-                                    className="w-8 h-8 origin-[70%_70%] animate-wave z-[5] drop-shadow-lg"
-                                />
+                        {/* Hero Intro — two clean lines, no mid-sentence wrapping */}
+                        <div
+                            className={cn(
+                                "flex flex-col gap-1",
+                                "animate-fade-in-up motion-reduce:animate-none",
+                                "max-sm:items-center",
+                            )}
+                            style={{ animationDelay: "0.2s" }}
+                        >
+                            <div className="flex flex-row items-center gap-2.5 max-sm:justify-center">
+                                <span
+                                    className={cn(
+                                        "font-secondary text-[clamp(16px,1.5vw,20px)] font-normal",
+                                        "text-white/85 tracking-wide",
+                                    )}
+                                >
+                                    Hello, I&apos;m Melwyn Titus
+                                </span>
+                                <div className="w-[52px] h-[28px] rounded-[40px] flex items-center justify-center border border-white/20 relative overflow-hidden group cursor-pointer backdrop-blur-sm bg-white/5 hover:bg-white/10 transition-all duration-300 shrink-0">
+                                    <div className="absolute top-0 w-full h-full bg-gradient-to-b from-white/20 to-transparent transform translate-y-0 duration-500 ease-in-out group-hover:-translate-y-full z-[4]" />
+                                    <Image
+                                        src="/home/hi.png"
+                                        alt="Wave"
+                                        width={24}
+                                        height={24}
+                                        sizes="24px"
+                                        className="w-6 h-6 origin-[70%_70%] animate-wave z-[5] drop-shadow-lg"
+                                    />
+                                </div>
                             </div>
                             <span
                                 className={cn(
-                                    "text-left font-secondary text-[clamp(16px,1.5vw,20px)] font-normal",
-                                    "text-white/85 tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)]",
-                                    "animate-fade-in-up motion-reduce:animate-none",
+                                    "font-secondary text-[clamp(16px,1.5vw,20px)] font-normal",
+                                    "text-white/60 tracking-wide",
+                                    "max-sm:text-center",
                                 )}
-                                style={{ animationDelay: "0.2s" }}
                             >
-                                a Full Stack Developer & Product Engineer
+                                Full Stack Developer &amp; Product Engineer
                             </span>
                         </div>
 
-                        {/* Hero Buttons */}
+                        {/* Hero CTAs — primary always on top/left, email below */}
                         <div
                             className={cn(
-                                "flex items-center gap-10 mt-8",
-                                "max-lg:flex-col-reverse max-lg:gap-7",
-                                "max-sm:flex-col max-sm:gap-5 max-sm:w-full",
+                                "flex flex-col gap-4 mt-4",
+                                "max-sm:w-full max-sm:items-center",
+                                "sm:flex-row sm:items-center sm:gap-8",
                             )}
+                            style={{ animationDelay: "0.3s" }}
                         >
-                            <Link href="/projects" className="w-full max-sm:max-w-[280px]">
+                            <Link href="/projects" className="max-sm:w-full max-sm:max-w-[280px]">
                                 <button
                                     className={cn(
                                         "group relative flex justify-center items-center w-full",
@@ -141,27 +159,46 @@ const PerformanceHeroSection = () => {
                                         "hover:shadow-[0_0_0_1px_rgba(0,87,224,0.5),0_12px_32px_rgba(0,87,224,0.3)]",
                                     )}
                                 >
-                                    <div className="absolute inset-0 bg-gradient-to-r from-[#0057E0]/10 via-transparent to-[#0057E0]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                                    <span className="relative z-10 tracking-wide">
-                                        Explore Projects
-                                    </span>
-                                    <div className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#0057E0] to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                                    <div className="absolute inset-0 bg-gradient-to-r from-[#0057E0]/10 via-transparent to-[#0057E0]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                    <span className="relative z-10 tracking-wide">Explore Projects</span>
+                                    <div className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#0057E0] to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
                                 </button>
                             </Link>
-                            <div className="flex flex-row items-center gap-3 group max-sm:hidden">
-                                <button
-                                    className="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 hover:border-white/30 transition-all duration-300 hover:scale-110 active:scale-95"
-                                    onClick={handleCopyEmail}
-                                    title={isCopied ? "Copied!" : "Copy email to clipboard"}
-                                >
-                                    <CopyIcon className="w-5 h-5 text-white/80 group-hover:text-white transition-colors" />
-                                </button>
-                                <span className="text-white/80 text-base font-normal tracking-wide w-[196px] group-hover:text-white/90 transition-colors">
+
+                            {/* Email copy — visible on all viewports */}
+                            <button
+                                className="flex flex-row items-center gap-3 group"
+                                onClick={handleCopyEmail}
+                                title={isCopied ? "Copied!" : "Copy email to clipboard"}
+                                aria-label={isCopied ? "Email copied" : "Copy email address"}
+                            >
+                                <span className="flex items-center justify-center w-9 h-9 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 hover:border-white/30 transition-all duration-300 hover:scale-110 active:scale-95 shrink-0">
+                                    <CopyIcon className="w-4 h-4 text-white/80 group-hover:text-white transition-colors" />
+                                </span>
+                                <span className="text-white/70 text-[clamp(14px,1.1vw,16px)] font-secondary font-normal tracking-wide group-hover:text-white/90 transition-colors">
                                     {isCopied ? "Copied!" : email}
                                 </span>
-                            </div>
+                            </button>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            {/* Scroll Indicator */}
+            <div
+                className={cn(
+                    "absolute bottom-8 left-1/2 -translate-x-1/2 z-20",
+                    "flex flex-col items-center gap-1.5",
+                    "animate-fade-in-up motion-reduce:animate-none",
+                )}
+                style={{ animationDelay: "0.8s" }}
+                aria-hidden="true"
+            >
+                <span className="text-white/30 font-secondary text-[11px] tracking-[0.15em] uppercase">
+                    scroll
+                </span>
+                <div className="w-px h-8 relative overflow-hidden rounded-full bg-white/10">
+                    <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-[#0057E0] to-transparent animate-scroll-line" />
                 </div>
             </div>
         </div>
