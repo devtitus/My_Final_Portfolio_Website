@@ -125,18 +125,6 @@ const AboutHeroSection: React.FC = () => {
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <div
-        className="absolute bottom-8 left-0 right-0 z-20 flex flex-col items-center gap-1.5 pointer-events-none"
-        aria-hidden="true"
-      >
-        <span className="text-white/30 font-secondary text-[11px] tracking-[0.15em] uppercase">
-          scroll
-        </span>
-        <div className="w-px h-8 relative overflow-hidden rounded-full bg-white/10">
-          <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-[#0057E0] to-transparent animate-scroll-line" />
-        </div>
-      </div>
     </section>
   );
 };
