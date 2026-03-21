@@ -187,7 +187,7 @@ const PerformanceHeroSection = () => {
             {/* Scroll Indicator */}
             <div
                 className={cn(
-                    "absolute bottom-8 left-1/2 -translate-x-1/2 z-20",
+                    "absolute bottom-8 left-0 right-0 z-20",
                     "flex flex-col items-center gap-1.5",
                     "animate-fade-in-up motion-reduce:animate-none",
                 )}
