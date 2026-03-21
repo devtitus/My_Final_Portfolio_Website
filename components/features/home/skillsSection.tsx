@@ -47,10 +47,11 @@ const SkillsSection = memo(function SkillsSection({ skills }: SkillsSectionProps
           "flex flex-col items-center gap-fluid-sm",
           "sm:flex-row sm:items-center sm:gap-fluid-md"
         )}>
-          {/* Spinning accent — compact, decorative */}
+          {/* Spinning accent — larger on mobile (stacked), compact inline on sm+ */}
           <div className={cn(
             "animate-spin-slow motion-reduce:animate-none shrink-0",
-            "w-[clamp(72px,8vw,112px)] h-[clamp(72px,8vw,112px)]",
+            "w-[clamp(140px,35vw,180px)] h-[clamp(140px,35vw,180px)]",
+            "sm:w-[clamp(80px,8vw,112px)] sm:h-[clamp(80px,8vw,112px)]",
           )}>
             <SkillSpinningImage className="aspect-square w-full h-full" />
           </div>

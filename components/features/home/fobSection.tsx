@@ -447,7 +447,7 @@ const FobSection = () => {
         <div className={cn(
           "grid gap-fluid-md",
           "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3",
-          "lg:grid-rows-2 lg:min-h-[clamp(480px,55vh,680px)]"
+          "lg:grid-rows-2 lg:h-[clamp(540px,62vh,740px)]"
         )}>
           {/* Column 1 - Globe Card */}
           <div className={cn(
@@ -470,7 +470,7 @@ const FobSection = () => {
                 Remote-first developer ready to collaborate across time zones.
               </p>
             </div>
-            <div className="flex-1 relative min-h-0">
+            <div className="flex-1 relative overflow-hidden">
               {isInView && shouldLoadGlobe && <World data={sampleArcs} globeConfig={globeConfig} />}
             </div>
           </div>
@@ -550,7 +550,7 @@ const FobSection = () => {
                 Tools I use to build fast, scalable web applications.
               </p>
             </div>
-            <div className="flex flex-col gap-fluid-sm flex-1 min-h-0">
+            <div className="flex flex-col gap-fluid-sm flex-1 overflow-hidden">
               <InfiniteMovingCards
                 items={testimonials}
                 direction="right"
