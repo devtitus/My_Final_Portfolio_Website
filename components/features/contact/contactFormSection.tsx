@@ -26,10 +26,16 @@ const ContactFormSection: React.FC = () => {
     try {
       const result = await submitContactForm(null, formData);
       if (result.success) {
-        setMessage({ text: "Message sent! I'll get back to you soon.", type: "success" });
+        setMessage({
+          text: "Message sent! I'll get back to you soon.",
+          type: "success",
+        });
         formRef.current?.reset();
       } else {
-        setMessage({ text: result.message || "Something went wrong.", type: "error" });
+        setMessage({
+          text: result.message || "Something went wrong.",
+          type: "error",
+        });
       }
     } catch {
       setMessage({ text: "An unexpected error occurred.", type: "error" });
@@ -44,17 +50,18 @@ const ContactFormSection: React.FC = () => {
         "relative px-[clamp(16px,4vw,60px)] pt-[clamp(40px,6vh,60px)] pb-[clamp(80px,10vh,120px)]",
         "max-w-[1400px] mx-auto",
         "flex flex-col lg:flex-row lg:items-start lg:justify-between",
-        "2xl:px-0 gap-[clamp(48px,6vw,80px)] z-10"
+        "2xl:px-0 gap-[clamp(48px,6vw,80px)] z-10",
       )}
     >
       {/* Left — Contact Info Card */}
       <div className="flex-1 flex flex-col gap-6 max-w-[520px]">
         <div>
-          <h2 className="font-secondary text-[clamp(22px,2.5vw,30px)] font-semibold text-foreground mb-2 leading-snug">
+          <h2 className="font-secondary text-[clamp(20px,3vw,30px)] font-semibold text-foreground mb-2 leading-tight">
             Get in touch
           </h2>
-          <p className="font-secondary text-[clamp(15px,1.1vw,17px)] font-normal leading-relaxed text-white/60">
-            I typically respond within 24–48 hours. For urgent inquiries, email is the fastest route.
+          <p className="font-secondary text-[clamp(14px,2.2vw,16px)] font-normal leading-relaxed text-white/65">
+            I typically respond within 24–48 hours. For urgent inquiries, email
+            is the fastest route.
           </p>
         </div>
 
@@ -62,38 +69,38 @@ const ContactFormSection: React.FC = () => {
         <div
           className={cn(
             "bg-white/[0.04] border border-white/[0.08] rounded-2xl",
-            "p-[clamp(20px,3vw,32px)] flex flex-col gap-6"
+            "p-[clamp(20px,3vw,32px)] flex flex-col gap-6",
           )}
         >
           <div className="flex flex-col gap-2">
-            <h4 className="flex items-center gap-2 text-[clamp(14px,1vw,16px)] font-medium text-foreground">
+            <h4 className="flex items-center gap-2 text-[clamp(14px,1.8vw,16px)] font-medium text-foreground">
               <Mail className="w-4 h-4 text-brand-blue flex-shrink-0" />
               Email
             </h4>
             <a
               href="mailto:m.works.gd@gmail.com"
-              className="text-white/60 hover:text-brand-blue transition-colors text-[clamp(14px,1vw,15px)] font-secondary"
+              className="text-white/65 hover:text-brand-blue transition-colors text-[clamp(14px,2vw,16px)] font-secondary"
             >
               m.works.gd@gmail.com
             </a>
           </div>
 
           <div className="flex flex-col gap-2">
-            <h4 className="flex items-center gap-2 text-[clamp(14px,1vw,16px)] font-medium text-foreground">
+            <h4 className="flex items-center gap-2 text-[clamp(14px,1.8vw,16px)] font-medium text-foreground">
               <MapPin className="w-4 h-4 text-brand-blue flex-shrink-0" />
               Location
             </h4>
-            <p className="text-white/60 text-[clamp(14px,1vw,15px)] font-secondary">
+            <p className="text-white/65 text-[clamp(14px,2vw,16px)] font-secondary">
               Mumbai, India 🇮🇳 — Open to remote worldwide
             </p>
           </div>
 
           <div className="flex flex-col gap-2">
-            <h4 className="flex items-center gap-2 text-[clamp(14px,1vw,16px)] font-medium text-foreground">
+            <h4 className="flex items-center gap-2 text-[clamp(14px,1.8vw,16px)] font-medium text-foreground">
               <Clock className="w-4 h-4 text-brand-blue flex-shrink-0" />
               Response Time
             </h4>
-            <p className="text-white/60 text-[clamp(14px,1vw,15px)] font-secondary">
+            <p className="text-white/65 text-[clamp(14px,2vw,16px)] font-secondary">
               Usually within 24–48 hours
             </p>
           </div>
@@ -105,8 +112,8 @@ const ContactFormSection: React.FC = () => {
               rel="noopener noreferrer"
               aria-label="LinkedIn profile"
               className={cn(
-                "flex items-center gap-2 text-[clamp(13px,1vw,14px)] font-secondary",
-                "text-white/60 hover:text-brand-blue transition-colors"
+                "flex items-center gap-2 text-[clamp(13px,1.5vw,14px)] font-secondary",
+                "text-white/65 hover:text-brand-blue transition-colors",
               )}
             >
               <Linkedin className="w-4 h-4" />
@@ -118,8 +125,8 @@ const ContactFormSection: React.FC = () => {
               rel="noopener noreferrer"
               aria-label="GitHub profile"
               className={cn(
-                "flex items-center gap-2 text-[clamp(13px,1vw,14px)] font-secondary",
-                "text-white/60 hover:text-brand-blue transition-colors"
+                "flex items-center gap-2 text-[clamp(13px,1.5vw,14px)] font-secondary",
+                "text-white/65 hover:text-brand-blue transition-colors",
               )}
             >
               <Github className="w-4 h-4" />
@@ -128,8 +135,9 @@ const ContactFormSection: React.FC = () => {
           </div>
         </div>
 
-        <blockquote className="text-white/40 text-[clamp(13px,1vw,15px)] leading-relaxed italic font-secondary border-l-2 border-brand-blue/30 pl-4">
-          &ldquo;Great design is a relationship between form and function.&rdquo;
+        <blockquote className="text-white/45 text-[clamp(13px,1.7vw,15px)] leading-relaxed italic font-secondary border-l-2 border-brand-blue/30 pl-4">
+          &ldquo;Great design is a relationship between form and
+          function.&rdquo;
         </blockquote>
       </div>
 
@@ -138,7 +146,7 @@ const ContactFormSection: React.FC = () => {
         className={cn(
           "flex-1 max-w-[600px] w-full",
           "bg-white/[0.04] border border-white/[0.08] rounded-2xl",
-          "p-[clamp(20px,3vw,32px)] flex flex-col justify-center"
+          "p-[clamp(20px,3vw,32px)] flex flex-col justify-center",
         )}
       >
         <form
@@ -152,10 +160,10 @@ const ContactFormSection: React.FC = () => {
             <div
               role="alert"
               className={cn(
-                "p-3 rounded-lg text-sm font-medium font-secondary",
+                "p-3 rounded-lg text-[clamp(13px,1.6vw,15px)] font-medium font-secondary",
                 message.type === "success"
                   ? "bg-green-500/10 text-green-400 border border-green-500/20"
-                  : "bg-red-500/10 text-red-400 border border-red-500/20"
+                  : "bg-red-500/10 text-red-400 border border-red-500/20",
               )}
             >
               {message.text}
@@ -166,9 +174,12 @@ const ContactFormSection: React.FC = () => {
           <div className="flex flex-col gap-2">
             <label
               htmlFor="contact-name"
-              className="font-secondary text-[clamp(14px,1vw,15px)] font-medium text-white/80"
+              className="font-secondary text-[clamp(14px,1.7vw,15px)] font-medium text-white/80"
             >
-              Name <span className="text-brand-blue" aria-hidden="true">*</span>
+              Name{" "}
+              <span className="text-brand-blue" aria-hidden="true">
+                *
+              </span>
             </label>
             <Input
               id="contact-name"
@@ -184,9 +195,12 @@ const ContactFormSection: React.FC = () => {
           <div className="flex flex-col gap-2">
             <label
               htmlFor="contact-email"
-              className="font-secondary text-[clamp(14px,1vw,15px)] font-medium text-white/80"
+              className="font-secondary text-[clamp(14px,1.7vw,15px)] font-medium text-white/80"
             >
-              Email Address <span className="text-brand-blue" aria-hidden="true">*</span>
+              Email Address{" "}
+              <span className="text-brand-blue" aria-hidden="true">
+                *
+              </span>
             </label>
             <Input
               id="contact-email"
@@ -202,9 +216,12 @@ const ContactFormSection: React.FC = () => {
           <div className="flex flex-col gap-2">
             <label
               htmlFor="contact-message"
-              className="font-secondary text-[clamp(14px,1vw,15px)] font-medium text-white/80"
+              className="font-secondary text-[clamp(14px,1.7vw,15px)] font-medium text-white/80"
             >
-              Message <span className="text-brand-blue" aria-hidden="true">*</span>
+              Message{" "}
+              <span className="text-brand-blue" aria-hidden="true">
+                *
+              </span>
             </label>
             <Textarea
               id="contact-message"
@@ -216,7 +233,7 @@ const ContactFormSection: React.FC = () => {
           </div>
 
           <div className="flex items-center justify-between gap-4 mt-1">
-            <p className="text-white/30 text-[12px] font-secondary">
+            <p className="text-white/35 text-[clamp(12px,1.3vw,13px)] font-secondary">
               <span className="text-brand-blue">*</span> Required fields
             </p>
             <Button
