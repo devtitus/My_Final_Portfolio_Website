@@ -31,7 +31,7 @@ const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center text-white/50 font-secondary text-sm">
+          <div className="w-full h-full flex items-center justify-center text-white/50 font-secondary text-[clamp(14px,2vw,16px)]">
             No Image
           </div>
         )}
@@ -56,10 +56,10 @@ const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
 
       {/* Content */}
       <div className="p-5">
-        <h3 className="text-white font-semibold font-secondary text-[15px] leading-snug mb-1.5">
+        <h3 className="text-white font-semibold font-secondary text-[clamp(16px,2.1vw,20px)] leading-snug mb-1.5">
           {project.title}
         </h3>
-        <p className="text-white/65 font-secondary text-[13px] leading-relaxed mb-4 line-clamp-2">
+        <p className="text-white/70 font-secondary text-[clamp(14px,2.2vw,16px)] leading-relaxed mb-4 line-clamp-2">
           {project.description}
         </p>
 
@@ -68,7 +68,7 @@ const ProjectCard = ({ project, onClick }: ProjectCardProps) => {
           {(project.tags || []).slice(0, 3).map((tag) => (
             <span
               key={tag}
-              className="px-2.5 py-0.5 text-[11px] font-secondary rounded-full bg-[rgba(0,87,224,0.1)] border border-[rgba(0,87,224,0.3)] text-[#0057E0]"
+              className="px-2.5 py-0.5 text-[clamp(11px,1.2vw,13px)] font-secondary rounded-full bg-[rgba(0,87,224,0.1)] border border-[rgba(0,87,224,0.3)] text-[#0057E0]"
             >
               {tag}
             </span>
