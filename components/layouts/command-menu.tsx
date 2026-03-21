@@ -236,7 +236,7 @@ const CommandMenu = memo(function CommandMenu({
             </div>
 
             {/* List */}
-            <Command.List className="max-h-[60vh] overflow-y-auto overflow-x-hidden p-2">
+            <Command.List data-lenis-prevent className="max-h-[60vh] overflow-y-auto overflow-x-hidden p-2">
               <Command.Empty className="py-6 text-center text-sm text-white/50 font-secondary">
                 No results found.
               </Command.Empty>
