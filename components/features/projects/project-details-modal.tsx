@@ -60,11 +60,11 @@ export function ProjectDetailsModal({
           )}
         >
           <DialogHeader className="flex-1 min-w-0 space-y-0">
-            <DialogTitle className="font-secondary text-[clamp(22px,2.4vw,32px)] text-left leading-snug text-foreground truncate">
+            <DialogTitle className="font-secondary text-[clamp(20px,3vw,30px)] text-left leading-tight text-foreground truncate">
               {project.title}
             </DialogTitle>
             {project.tagline && (
-              <p className="font-secondary text-xs sm:text-sm text-white/50 text-left mt-1 leading-relaxed">
+              <p className="font-secondary text-[clamp(13px,1.8vw,15px)] text-white/55 text-left mt-1 leading-relaxed">
                 {project.tagline}
               </p>
             )}
@@ -79,7 +79,7 @@ export function ProjectDetailsModal({
                 className={cn(
                   "rounded-full border border-white/[0.10]",
                   "bg-white/[0.05] flex items-center gap-1.5 px-3 h-9",
-                  "text-white/70 text-[13px] font-secondary font-medium",
+                  "text-white/75 text-[clamp(13px,1.4vw,14px)] font-secondary font-medium",
                   "transition-all duration-200",
                   "hover:bg-brand-blue hover:border-brand-blue hover:text-white",
                   "max-sm:px-2 max-sm:gap-0",
@@ -98,7 +98,7 @@ export function ProjectDetailsModal({
                 className={cn(
                   "rounded-full border border-white/[0.10]",
                   "bg-white/[0.05] flex items-center gap-1.5 px-3 h-9",
-                  "text-white/70 text-[13px] font-secondary font-medium",
+                  "text-white/75 text-[clamp(13px,1.4vw,14px)] font-secondary font-medium",
                   "transition-all duration-200",
                   "hover:bg-white/[0.12] hover:border-white/20 hover:text-white",
                   "max-sm:px-2 max-sm:gap-0",
@@ -117,7 +117,7 @@ export function ProjectDetailsModal({
                 className={cn(
                   "rounded-full border border-white/[0.10]",
                   "bg-white/[0.05] flex items-center gap-1.5 px-3 h-9",
-                  "text-white/70 text-[13px] font-secondary font-medium",
+                  "text-white/75 text-[clamp(13px,1.4vw,14px)] font-secondary font-medium",
                   "transition-all duration-200",
                   "hover:bg-white/[0.12] hover:border-white/20 hover:text-white",
                   "max-sm:px-2 max-sm:gap-0",
@@ -159,7 +159,7 @@ export function ProjectDetailsModal({
           {/* Gallery section */}
           {carouselImages.length > 0 && (
             <div className="mb-[clamp(28px,4vw,40px)]">
-              <p className="text-[11px] font-secondary font-semibold text-white/30 uppercase tracking-[0.12em] mb-3">
+              <p className="text-[clamp(11px,1.2vw,12px)] font-secondary font-semibold text-white/35 uppercase tracking-[0.12em] mb-3">
                 Gallery
               </p>
               <ScreenshotsCarousel
@@ -172,14 +172,14 @@ export function ProjectDetailsModal({
           {/* Tech stack section */}
           {allTags.length > 0 && (
             <div className="mb-[clamp(24px,3vw,36px)]">
-              <p className="text-[11px] font-secondary font-semibold text-white/30 uppercase tracking-[0.12em] mb-3">
+              <p className="text-[clamp(11px,1.2vw,12px)] font-secondary font-semibold text-white/35 uppercase tracking-[0.12em] mb-3">
                 Tech Stack
               </p>
               <div className="flex flex-wrap gap-2">
                 {allTags.map((tech) => (
                   <span
                     key={typeof tech === "string" ? tech : tech.id}
-                    className="text-[12px] px-2.5 py-1 bg-white/[0.05] text-white/60 border border-white/[0.08] rounded-full whitespace-nowrap font-secondary"
+                    className="text-[clamp(12px,1.5vw,14px)] px-2.5 py-1 bg-white/[0.05] text-white/70 border border-white/[0.08] rounded-full whitespace-nowrap font-secondary"
                   >
                     {typeof tech === "string" ? tech : tech.label}
                   </span>
@@ -190,22 +190,22 @@ export function ProjectDetailsModal({
 
           {/* Prose content section */}
           <div>
-            <p className="text-[11px] font-secondary font-semibold text-white/30 uppercase tracking-[0.12em] mb-4">
+            <p className="text-[clamp(11px,1.2vw,12px)] font-secondary font-semibold text-white/35 uppercase tracking-[0.12em] mb-4">
               Overview
             </p>
-            <div className="text-[15px] leading-[1.75] text-white/70">
+            <div className="text-[clamp(14px,2vw,16px)] leading-[1.75] text-white/75">
               {project.serializedContent ? (
                 <div
                   className={cn(
                     "prose prose-invert max-w-none",
                     "prose-headings:font-secondary prose-headings:text-foreground prose-headings:font-semibold",
-                    "prose-h2:text-[15px] sm:prose-h2:text-[18px] prose-h3:text-[13px] sm:prose-h3:text-[16px]",
-                    "prose-p:font-secondary prose-p:text-white/70 prose-p:text-[13px] sm:prose-p:text-[15px] prose-p:leading-[1.75]",
-                    "prose-li:font-secondary prose-li:text-white/70 prose-li:text-[13px] sm:prose-li:text-[15px]",
+                    "prose-h2:text-[clamp(18px,2.2vw,22px)] prose-h3:text-[clamp(16px,1.9vw,19px)]",
+                    "prose-p:font-secondary prose-p:text-white/75 prose-p:text-[clamp(14px,2vw,16px)] prose-p:leading-[1.75]",
+                    "prose-li:font-secondary prose-li:text-white/75 prose-li:text-[clamp(14px,2vw,16px)]",
                     "prose-strong:text-foreground prose-strong:font-semibold",
                     "prose-a:text-brand-blue prose-a:no-underline hover:prose-a:underline",
-                    "prose-code:text-blue-300 prose-code:bg-white/[0.08] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-[13px] prose-code:before:content-none prose-code:after:content-none",
-                    "prose-pre:bg-[#08080a] prose-pre:border prose-pre:border-white/10 prose-pre:text-[13px]",
+                    "prose-code:text-blue-300 prose-code:bg-white/[0.08] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-[clamp(12px,1.5vw,13px)] prose-code:before:content-none prose-code:after:content-none",
+                    "prose-pre:bg-[#08080a] prose-pre:border prose-pre:border-white/10 prose-pre:text-[clamp(12px,1.5vw,13px)]",
                     "prose-blockquote:border-l-brand-blue prose-blockquote:bg-white/[0.03] prose-blockquote:py-1 prose-blockquote:pr-4",
                     "prose-hr:border-white/10",
                   )}
@@ -213,7 +213,7 @@ export function ProjectDetailsModal({
                   <MDXRemote {...project.serializedContent} />
                 </div>
               ) : (
-                <p className="font-secondary text-white/70 text-[15px] leading-[1.75]">
+                <p className="font-secondary text-white/75 text-[clamp(14px,2vw,16px)] leading-[1.75]">
                   {project.description}
                 </p>
               )}
